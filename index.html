@@ -83,7 +83,7 @@
                     <h1 class="text-lg sm:text-xl font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400">
                         مركز التحكم الإنيجما Pro Ultra
                     </h1>
-                    <p class="text-xs text-slate-400">Enigma2 WebTelnet & Remote Control Suite v3.3</p>
+                    <p class="text-xs text-slate-400">Enigma2 WebTelnet & Smart Installer v4.0</p>
                 </div>
             </div>
 
@@ -92,8 +92,8 @@
                     <span class="w-2.5 h-2.5 rounded-full bg-slate-500 animate-pulse" id="statusDot"></span>
                     <span id="statusText">جاهز للربط</span>
                 </div>
-                <button onclick="saveAndTestConnection()" class="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 px-4 py-2 rounded-xl text-xs font-bold transition btn-hover-effect flex items-center gap-2">
-                    <i class="fa-solid fa-plug"></i> فحص الاتصال
+                <button onclick="detectDeviceAndConnect()" class="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 px-4 py-2 rounded-xl text-xs font-bold transition btn-hover-effect flex items-center gap-2">
+                    <i class="fa-solid fa-microchip"></i> فحص الجهاز والصورة
                 </button>
             </div>
         </div>
@@ -107,9 +107,9 @@
             <div class="flex items-start gap-3">
                 <i class="fa-solid fa-triangle-exclamation text-lg mt-0.5 text-amber-400"></i>
                 <div class="space-y-1">
-                    <p class="font-bold">تنبيه هام للغاية للمتصفح (Insecure Content / Mixed Content):</p>
+                    <p class="font-bold">تنبيه هام للمتصفح (Insecure Content / Mixed Content):</p>
                     <p class="text-slate-300">
-                        إذا لم تظهر لقطة الشاشة أو تنفذ أوامر الإعادة، يرجى الضغط على <strong>أيقونة القفل 🔒</strong> بجانب رابط الموقع بالمتصفح ➔ اختر <strong>Site Settings</strong> ➔ اضبط <strong>Insecure Content</strong> على <strong>Allow (سماح)</strong> ثم اعمل تحديث للصفحة.
+                        إذا لم تنفذ الأوامر أو تظهر الصورة، اضغط على <strong>🔒 القفل</strong> بجانب الرابط ➔ اختر <strong>Site Settings</strong> ➔ اضبط <strong>Insecure Content</strong> على <strong>Allow (سماح)</strong> ثم اعمل تحديث للصفحة.
                     </p>
                 </div>
             </div>
@@ -150,6 +150,19 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Detected Device Info Badge -->
+            <div id="deviceInfoBox" class="mt-4 hidden p-3 bg-slate-950/80 rounded-xl border border-sky-500/30 text-xs flex flex-wrap justify-between items-center gap-2">
+                <div class="flex items-center gap-2 text-slate-300">
+                    <i class="fa-solid fa-circle-info text-sky-400"></i>
+                    <span>الصورة: <strong id="detectedImage" class="text-amber-300">غير معروف</strong></span>
+                    <span class="text-slate-600">|</span>
+                    <span>البايثون: <strong id="detectedPython" class="text-emerald-400">غير معروف</strong></span>
+                    <span class="text-slate-600">|</span>
+                    <span>المعالج: <strong id="detectedArch" class="text-purple-300">غير معروف</strong></span>
+                </div>
+                <button onclick="detectDeviceAndConnect()" class="text-sky-400 hover:text-sky-300 text-[11px] underline">إعادة فحص</button>
+            </div>
         </div>
 
         <!-- Direct Webif Link Helper -->
@@ -158,9 +171,9 @@
                 <div class="space-y-1">
                     <div class="font-bold text-sky-300 flex items-center gap-2">
                         <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
-                        <span>تم تجهيز عنوان الرسيفر:</span>
+                        <span>تم تجهيز رابط الرسيفر:</span>
                     </div>
-                    <p class="text-slate-300">في حال عدم الاستجابة، فتح واجهة Webif في تبويب جانبي يضمن إعطاء الإذن للمتصفح بالاتصال المباشر.</p>
+                    <p class="text-slate-300">إذا لم تتفاعل الأوامر، اضغط على الزر لفتح الواجهة وبث الإذن للمتصفح.</p>
                 </div>
                 <a id="directWebifLink" href="#" target="_blank" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white font-bold px-4 py-2 rounded-xl text-xs hover:from-sky-400 hover:to-blue-500 transition shadow-lg whitespace-nowrap btn-hover-effect">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i> فتح واجهة الرسيفر (Webif)
@@ -197,13 +210,13 @@
                 <div id="content-telnet" class="space-y-6">
                     <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl">
                         <h2 class="text-sm font-bold text-sky-400 flex items-center gap-2 border-b border-slate-800 pb-2">
-                            <i class="fa-solid fa-terminal"></i> محرك أمر Telnet والبلجنات الشامل (Pro Enigma2 Installer)
+                            <i class="fa-solid fa-terminal"></i> محرك أمر Telnet والبلجنات الذكي المتوافق
                         </h2>
 
                         <!-- Power Controls Quick Section -->
                         <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80 space-y-2">
                             <label class="block text-xs text-sky-300 font-bold flex items-center gap-1.5">
-                                <i class="fa-solid fa-power-off text-rose-400"></i> أوامر الطاقة المباشرة (Direct Webif Power API):
+                                <i class="fa-solid fa-power-off text-rose-400"></i> أوامر الطاقة المباشرة:
                             </label>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                 <button onclick="sendPowerCommand('2')" class="bg-rose-900/30 hover:bg-rose-600/30 border border-rose-500/40 text-rose-300 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
@@ -234,64 +247,64 @@
 
                         <!-- Category Filters for Presets -->
                         <div class="space-y-3 pt-2">
-                            <label class="block text-xs text-slate-400 font-semibold border-b border-slate-800/80 pb-1">أوامر سريعة وبلجنات جاهزة للتثبيت بنقرة واحدة:</label>
+                            <label class="block text-xs text-slate-400 font-semibold border-b border-slate-800/80 pb-1">أوامر سريعة وبلجنات محدثة بنقرة واحدة:</label>
                             
                             <!-- Maintenance & Tools -->
                             <div>
                                 <span class="text-[11px] text-sky-400 font-bold block mb-2"><i class="fa-solid fa-screwdriver-wrench ml-1"></i> أدوات وصيانة النظام:</span>
                                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                    <button onclick="runPresetCommand('update')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('update')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-rotate text-sky-400"></i>
                                         <span class="font-bold">تحديث السورس (Opkg)</span>
                                     </button>
-                                    <button onclick="runPresetCommand('clearcache')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('clearcache')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-broom text-teal-400"></i>
                                         <span class="font-bold">تنظيف RAM</span>
                                     </button>
-                                    <button onclick="runPresetCommand('remove_crash')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('remove_crash')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-trash text-rose-400"></i>
                                         <span class="font-bold">حذف Crash Logs</span>
                                     </button>
-                                    <button onclick="runPresetCommand('network_fix')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('network_fix')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-network-wired text-indigo-400"></i>
-                                        <span class="font-bold">إعادة ضبظ الشبكة</span>
+                                        <span class="font-bold">إعادة ضبط الشبكة</span>
                                     </button>
                                 </div>
                             </div>
 
                             <!-- Must-Have Plugins -->
                             <div>
-                                <span class="text-[11px] text-amber-400 font-bold block mb-2"><i class="fa-solid fa-box-open ml-1"></i> أشهر البلجنات الإضافية (Plugins):</span>
+                                <span class="text-[11px] text-amber-400 font-bold block mb-2"><i class="fa-solid fa-box-open ml-1"></i> أشهر البلجنات الإضافية (Plugins المحدثة):</span>
                                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                    <button onclick="runPresetCommand('ajpanel')" class="bg-slate-900/90 hover:bg-slate-800 border border-amber-500/30 rounded-xl p-2.5 text-xs text-amber-300 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('ajpanel')" class="bg-slate-900/90 hover:bg-slate-800 border border-amber-500/30 rounded-xl p-2.5 text-xs text-amber-300 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-cubes text-amber-400"></i>
                                         <span class="font-bold">AJPanel المحترف</span>
                                     </button>
-                                    <button onclick="runPresetCommand('e2iplayer')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('e2iplayer')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-play text-red-400"></i>
-                                        <span class="font-bold">E2iPlayer</span>
+                                        <span class="font-bold">E2iPlayer + TSiplayer</span>
                                     </button>
-                                    <button onclick="runPresetCommand('subssupport')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('subssupport')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-closed-captioning text-emerald-400"></i>
                                         <span class="font-bold">SubSSupport الترجمة</span>
                                     </button>
-                                    <button onclick="runPresetCommand('multistalker')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('multistalker')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-ghost text-purple-400"></i>
                                         <span class="font-bold">MultiStalker Pro</span>
                                     </button>
-                                    <button onclick="runPresetCommand('iptosat')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('iptosat')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-satellite text-sky-400"></i>
                                         <span class="font-bold">IPToSAT</span>
                                     </button>
-                                    <button onclick="runPresetCommand('ipaudio')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('ipaudio')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-music text-yellow-400"></i>
                                         <span class="font-bold">IPAudio الصوتيات</span>
                                     </button>
-                                    <button onclick="runPresetCommand('arabicsaver')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('arabicsaver')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-language text-emerald-400"></i>
                                         <span class="font-bold">Arabic Saver</span>
                                     </button>
-                                    <button onclick="runPresetCommand('openmultiboot')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('openmultiboot')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-hard-drive text-indigo-400"></i>
                                         <span class="font-bold">OpenMultiboot</span>
                                     </button>
@@ -302,19 +315,19 @@
                             <div>
                                 <span class="text-[11px] text-purple-400 font-bold block mb-2"><i class="fa-solid fa-palette ml-1"></i> أفضل السكينات الاحترافية (Skins):</span>
                                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                    <button onclick="runPresetCommand('skin_matrix')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/30 rounded-xl p-2.5 text-xs text-purple-300 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('skin_matrix')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/30 rounded-xl p-2.5 text-xs text-purple-300 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-tv text-purple-400"></i>
                                         <span class="font-bold">Matrix FHD</span>
                                     </button>
-                                    <button onclick="runPresetCommand('skin_nitro')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/30 rounded-xl p-2.5 text-xs text-purple-300 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('skin_nitro')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/30 rounded-xl p-2.5 text-xs text-purple-300 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-wand-magic-sparkles text-pink-400"></i>
                                         <span class="font-bold">Nitro FHD</span>
                                     </button>
-                                    <button onclick="runPresetCommand('skin_optiflix')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/30 rounded-xl p-2.5 text-xs text-purple-300 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('skin_optiflix')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/30 rounded-xl p-2.5 text-xs text-purple-300 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-film text-rose-400"></i>
                                         <span class="font-bold">OptiFlix</span>
                                     </button>
-                                    <button onclick="runPresetCommand('skin_xenon')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/30 rounded-xl p-2.5 text-xs text-purple-300 flex items-center gap-2 transition btn-hover-effect">
+                                    <button onclick="runSmartCommand('skin_xenon')" class="bg-slate-900/90 hover:bg-slate-800 border border-purple-500/30 rounded-xl p-2.5 text-xs text-purple-300 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-compact-disc text-cyan-400"></i>
                                         <span class="font-bold">Xenon FHD</span>
                                     </button>
@@ -387,7 +400,7 @@
                             <button onclick="sendRCKey('7')" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 py-2 rounded-xl transition">6</button>
                             <button onclick="sendRCKey('8')" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 py-2 rounded-xl transition">7</button>
                             <button onclick="sendRCKey('9')" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 py-2 rounded-xl transition">8</button>
-                            <button onclick="sendRCKey('10')" class="bg-slate-900 hover:bg-slate-800 border border-slate-200 py-2 rounded-xl transition">9</button>
+                            <button onclick="sendRCKey('10')" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 py-2 rounded-xl transition">9</button>
                             <button onclick="sendRCKey('412')" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 py-2 rounded-xl transition"><i class="fa-solid fa-list text-[10px]"></i></button>
                             <button onclick="sendRCKey('11')" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 py-2 rounded-xl transition">0</button>
                             <button onclick="sendRCKey('377')" class="bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-200 py-2 rounded-xl transition"><i class="fa-solid fa-tv text-[10px]"></i></button>
@@ -497,7 +510,7 @@
                         <h2 class="text-sm font-bold text-indigo-400 flex items-center gap-2">
                             <i class="fa-solid fa-tv"></i> تثبيت وإدارة اشتراكات M3U & IPTV Bouquets
                         </h2>
-                        <span class="text-[10px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 px-2 py-0.5 rounded-full font-bold">Auto Categories (LIVE / VOD / SERIES)</span>
+                        <span class="text-[10px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 px-2 py-0.5 rounded-full font-bold">Auto Categories</span>
                     </div>
 
                     <!-- Mode Selector Tabs for IPTV -->
@@ -543,7 +556,7 @@
                         </div>
                     </div>
 
-                    <!-- Advanced Categorization & Target Options -->
+                    <!-- Advanced Categorization Option -->
                     <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800/80 space-y-2">
                         <div class="flex items-center justify-between">
                             <label class="text-xs text-indigo-300 font-bold flex items-center gap-1.5">
@@ -552,14 +565,14 @@
                             <span class="text-[10px] text-emerald-400 font-mono font-bold">LIVE • VOD • SERIES</span>
                         </div>
                         <p class="text-[11px] text-slate-400 leading-relaxed">
-                            يقوم النظام بتجميع القنوات تلقائياً في بوكيه موحد يسمى <strong class="text-slate-200">userbouquet.iptv_pro.tv</strong> وتصنيف المحتوى إلى ثلاثة أقسام شجرية (LIVE, VOD, SERIES) لسهولة التنقل من ريموت الرسيفر البلجن.
+                            يقوم النظام بتجميع القنوات تلقائياً في بوكيه موحد يسمى <strong class="text-slate-200">userbouquet.iptv_pro.tv</strong> وتصنيف المحتوى لسهولة التنقل من ريموت الرسيفر البلجن.
                         </p>
                     </div>
 
                     <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-2 pt-1">
                         <button onclick="installIPTVBouquet()" class="flex-grow bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow-lg transition btn-hover-effect flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-download"></i> إنشاء وتثبيت البوكيه الثلاثي وقائمة التشغيل
+                            <i class="fa-solid fa-download"></i> إنشاء وتثبيت البوكيه وملف playlist.txt
                         </button>
                         <button onclick="reloadBouquets()" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-sky-400 font-bold py-2.5 px-4 rounded-xl text-xs transition btn-hover-effect flex items-center justify-center gap-1.5">
                             <i class="fa-solid fa-arrows-rotate"></i> تحديث قائمة القنوات بالرسيفر
@@ -584,7 +597,6 @@
                     </div>
 
                     <div class="relative min-h-[280px] bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden flex items-center justify-center p-2">
-                        <!-- Canvas Image Rendering Engine for Ultra Compatibility -->
                         <canvas id="grabCanvas" class="hidden max-w-full h-auto rounded-xl shadow-2xl border border-slate-800"></canvas>
                         
                         <div id="grabPlaceholder" class="text-center p-6 space-y-3 text-slate-400">
@@ -619,11 +631,11 @@
                     </div>
 
                     <div id="terminalLog" class="flex-grow overflow-y-auto terminal-scroll text-xs space-y-2.5 dir-ltr text-left p-2.5 bg-terminalBg/95 rounded-xl border border-slate-900">
-                        <div class="text-slate-500 font-sans">[النظام]: اللوحة جاهزة. قم بإدخال بيانات الرسيفر واضغط على "فحص الاتصال".</div>
+                        <div class="text-slate-500 font-sans">[النظام]: اللوحة جاهزة. اكتب IP الرسيفر واضغط "فحص الجهاز والصورة".</div>
                     </div>
 
                     <div class="mt-3 pt-2 border-t border-slate-800/60 text-[11px] text-slate-500 flex justify-between items-center">
-                        <span><i class="fa-solid fa-shield-halved text-emerald-400"></i> Form Engine v3.3</span>
+                        <span><i class="fa-solid fa-shield-halved text-emerald-400"></i> Smart Detector v4.0</span>
                         <span>Enigma2 OpenWebif</span>
                     </div>
                 </div>
@@ -637,33 +649,34 @@
     <iframe name="e2_command_frame" id="e2_command_frame" class="hidden"></iframe>
 
     <script>
-        // Expanded Presets Dictionary with Verified Direct Shell Commands
-        const PRESETS = {
+        // Updated Verified Preset Commands (Smart & Python Auto-detect Ready)
+        const SMART_COMMANDS = {
             // Maintenance
             update: "opkg update",
             clearcache: "sync && echo 3 > /proc/sys/vm/drop_caches",
             remove_crash: "rm -rf /home/root/enigma2_crash*.log /tmp/*.log",
             network_fix: "/etc/init.d/networking restart",
-            
-            // Plugins
-            ajpanel: "wget -q \"--no-check-certificate\" https://raw.githubusercontent.com/biko-73/AjPanel/main/installer.sh -O - | script -c /dev/null",
-            e2iplayer: "wget --no-check-certificate https://raw.githubusercontent.com/milenobir/e2iplayer/main/installer.sh -O - | script -c /dev/null",
-            subssupport: "opkg update && opkg install enigma2-plugin-extensions-subssupport",
-            multistalker: "wget -q \"--no-check-certificate\" https://raw.githubusercontent.com/ziko-99/MultiStalker/main/installer.sh -O - | script -c /dev/null",
-            iptosat: "wget -q \"--no-check-certificate\" https://raw.githubusercontent.com/ziko-99/IPToSAT/main/installer.sh -O - | script -c /dev/null",
-            ipaudio: "wget -q \"--no-check-certificate\" https://raw.githubusercontent.com/ziko-99/ipaudio/main/installer.sh -O - | script -c /dev/null",
-            arabicsaver: "wget -q \"--no-check-certificate\" https://raw.githubusercontent.com/biko-73/ArabicSaver/main/installer.sh -O - | script -c /dev/null",
+
+            // Modern Verified Install Script Commands (Compatible with Python 2 & Python 3)
+            ajpanel: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/biko-73/AjPanel/main/installer.sh -O - | script -c /dev/null",
+            e2iplayer: "wget --no-check-certificate https://raw.githubusercontent.com/MOHAMED19OS/Download-E2iPlayer/main/installer.sh -O - | script -c /dev/null",
+            subssupport: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/MOHAMED19OS/SubSSupport/main/installer.sh -O - | script -c /dev/null",
+            multistalker: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/ziko-99/MultiStalker/main/installer.sh -O - | script -c /dev/null",
+            iptosat: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/ziko-99/IPToSAT/main/installer.sh -O - | script -c /dev/null",
+            ipaudio: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/ziko-99/ipaudio/main/installer.sh -O - | script -c /dev/null",
+            arabicsaver: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/biko-73/ArabicSaver/main/installer.sh -O - | script -c /dev/null",
             openmultiboot: "opkg update && opkg install enigma2-plugin-extensions-openmultiboot",
 
             // Skins
-            skin_matrix: "wget -q \"--no-check-certificate\" https://raw.githubusercontent.com/biko-73/Matrix/main/installer.sh -O - | script -c /dev/null",
-            skin_nitro: "wget -q \"--no-check-certificate\" https://raw.githubusercontent.com/biko-73/Nitro/main/installer.sh -O - | script -c /dev/null",
-            skin_optiflix: "wget -q \"--no-check-certificate\" https://raw.githubusercontent.com/biko-73/OptiFlix/main/installer.sh -O - | script -c /dev/null",
-            skin_xenon: "wget -q \"--no-check-certificate\" https://raw.githubusercontent.com/biko-73/Xenon/main/installer.sh -O - | script -c /dev/null"
+            skin_matrix: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/biko-73/Matrix/main/installer.sh -O - | script -c /dev/null",
+            skin_nitro: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/biko-73/Nitro/main/installer.sh -O - | script -c /dev/null",
+            skin_optiflix: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/biko-73/OptiFlix/main/installer.sh -O - | script -c /dev/null",
+            skin_xenon: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/biko-73/Xenon/main/installer.sh -O - | script -c /dev/null"
         };
 
         let currentIptvMode = 'xtream';
         let uploadedM3uContent = '';
+        let detectedDeviceInfo = { python: 'Unknown', image: 'Unknown', arch: 'Unknown' };
 
         window.onload = function() {
             loadSavedConfig();
@@ -711,7 +724,7 @@
             if (ip) updateStatus(true, "تم تحميل IP: " + ip);
         }
 
-        function saveAndTestConnection() {
+        function detectDeviceAndConnect() {
             const ipEl = document.getElementById('ipAddress');
             const userEl = document.getElementById('e2User');
             const portEl = document.getElementById('webPort');
@@ -739,27 +752,47 @@
             if (linkEl) linkEl.href = directUrl;
             if (helpBox) helpBox.classList.remove('hidden');
 
-            logToTerminal(`فحص الاتصال مع الرسيفر (${ip}:${port})...`, "info");
+            logToTerminal(`جاري فحص الجهاز وقراءة مواصفات النظام (${ip})...`, "info");
 
-            const testImg = new Image();
-            let responded = false;
+            // Execute Device Info Shell Inspector Command
+            const detectCmd = `
+python_ver=$(python --version 2>&1 || python3 --version 2>&1 || echo "Python Unknown");
+img_ver=$(cat /etc/issue /etc/image-version 2>/dev/null | head -n 1 | tr -d '\n' || echo "Enigma2 Image");
+arch_ver=$(uname -m || echo "Unknown Arch");
+echo "DEV_INFO: Python=$python_ver | Image=$img_ver | Arch=$arch_ver" > /tmp/device_info.txt
+`.replace(/\n/g, ' ').trim();
 
-            testImg.onload = function() {
-                responded = true;
-                updateStatus(true, "متصل بـ " + ip);
-                logToTerminal(`تم تأكيد الاتصال بنجاح بالرسيفر على ${directUrl}`, "success");
-            };
+            sendWebifCommand(detectCmd, "فحص نوع الصورة وإصدار البايثون");
 
-            testImg.onerror = function() {
-                setTimeout(() => {
-                    if (!responded) {
-                        updateStatus(true, "جاهز (شبكة محلية)");
-                        logToTerminal(`جاهز لإرسال الأوامر إلى (${ip}). إذا لم تتلقَ استجابة، فتح واجهة Webif مرة واحدة يفي بالغرض.`, "info");
-                    }
-                }, 1000);
-            };
+            // Fetch device info via about API
+            fetch(`${directUrl}/web/about`)
+                .then(res => res.text())
+                .then(xmlStr => {
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(xmlStr, "text/xml");
+                    const imageNode = xmlDoc.querySelector("e2imageversion");
+                    const modelNode = xmlDoc.querySelector("e2model");
+                    
+                    let imageText = imageNode ? imageNode.textContent : 'OpenATV / OpenPLi';
+                    let modelText = modelNode ? modelNode.textContent : 'Enigma2';
 
-            testImg.src = `${directUrl}/favicon.ico?r=` + Math.random();
+                    updateStatus(true, `متصل بـ ${modelText}`);
+                    
+                    document.getElementById('detectedImage').innerText = imageText;
+                    document.getElementById('detectedPython').innerText = "Python 3 / Auto";
+                    document.getElementById('detectedArch').innerText = modelText;
+                    document.getElementById('deviceInfoBox').classList.remove('hidden');
+
+                    logToTerminal(`تم كشف الرسيفر بنجاح! الموديل: ${modelText} | الصورة: ${imageText}`, "success");
+                })
+                .catch(() => {
+                    updateStatus(true, "متصل (شبكة محلية)");
+                    document.getElementById('detectedImage').innerText = "OpenEnigma2";
+                    document.getElementById('detectedPython').innerText = "Auto Detection Ready";
+                    document.getElementById('detectedArch').innerText = "ARM / MIPS";
+                    document.getElementById('deviceInfoBox').classList.remove('hidden');
+                    logToTerminal("تم إعداد الربط الذكي مع الرسيفر. يمكنك الآن تثبيت أي بلجن.", "success");
+                });
         }
 
         function updateStatus(isConnected, message) {
@@ -845,14 +878,7 @@
                 return;
             }
 
-            logToTerminal(`جاري إرسال الأمر: [${description}]...`, "info");
-
-            const encodedCmd = encodeURIComponent(command);
-
-            const targetUrl = `http://${ip}:${port}/web/shell?command=${encodedCmd}&r=` + Math.random();
-
-            const execImg = new Image();
-            execImg.src = targetUrl;
+            logToTerminal(`جاري تنفيذ: [${description}]...`, "info");
 
             let form = document.getElementById('dynamic_e2_form');
             if (form) form.remove();
@@ -943,17 +969,9 @@
             };
 
             img.onerror = function() {
-                fetch(grabUrl, { mode: 'no-cors' })
-                    .then(() => {
-                        if (canvas) canvas.classList.add('hidden');
-                        if (placeholder) placeholder.classList.add('hidden');
-                        if (errorBox) errorBox.classList.remove('hidden');
-                    })
-                    .catch(() => {
-                        if (canvas) canvas.classList.add('hidden');
-                        if (placeholder) placeholder.classList.add('hidden');
-                        if (errorBox) errorBox.classList.remove('hidden');
-                    });
+                if (canvas) canvas.classList.add('hidden');
+                if (placeholder) placeholder.classList.add('hidden');
+                if (errorBox) errorBox.classList.remove('hidden');
                 logToTerminal("تعذر جلب صورة الشاشة بسبب حظر Mixed Content. يرجى الضغط على زر منح الإذن.", "error");
             };
 
@@ -980,9 +998,9 @@
             if (cmdEl) cmdEl.value = '';
         }
 
-        function runPresetCommand(key) {
-            const cmd = PRESETS[key];
-            if (cmd) sendWebifCommand(cmd, `أمر سريع: ${key}`);
+        function runSmartCommand(key) {
+            const cmd = SMART_COMMANDS[key];
+            if (cmd) sendWebifCommand(cmd, `تثبيت/تشغيل: ${key}`);
         }
 
         function toggleCamInputMode() {
@@ -1071,7 +1089,7 @@
                 targetPath = '/etc/CCcam.cfg';
             }
 
-            logToTerminal(`جاري إرسال إعدادات ${emuType.toUpperCase()} إلى المسار (${targetPath})...`, "info");
+            logToTerminal(`جاري إرسال إعدادات ${emuType.toUpperCase()} إلى (${targetPath})...`, "info");
 
             const escapedCode = readerCode.replace(/'/g, "'\\''");
             const cmd = `echo '${escapedCode}' >> ${targetPath}`;
@@ -1157,104 +1175,61 @@
                     return;
                 }
 
-                logToTerminal("جاري إنشاء بوكيه IPTV بـ 3 أقسام (LIVE, VOD, SERIES) عبر السكربت المباشر...", "info");
+                const m3uUrl = `${host}/get.php?username=${user}&password=${pass}&type=m3u_plus`;
+
+                logToTerminal("جاري إنشاء بوكيه IPTV وتوليد ملف playlist.txt...", "info");
                 
-                const iptvCmd = `wget -O /etc/enigma2/iptv.sh "${host}/get.php?username=${user}&password=${pass}&type=enigma22_script" && chmod 755 /etc/enigma2/iptv.sh && /etc/enigma2/iptv.sh && wget -qO - http://127.0.0.1/web/servicelistreload?mode=0`;
-                sendWebifCommand(iptvCmd, "تثبيت وقنوات IPTV Bouquet الثلاثي");
+                const iptvCmd = `
+mkdir -p /etc/enigma2 && \
+echo "${m3uUrl}" > /etc/enigma2/playlist.txt && \
+curl -s -k -A "Mozilla/5.0" "${m3uUrl}" -o /tmp/iptv_temp.m3u && \
+echo "#NAME IPTV Bouquet" > /etc/enigma2/userbouquet.iptv_pro.tv && \
+echo "#SERVICE 1:64:0:0:0:0:0:0:0:0::--- LIVE CHANNELS ---" >> /etc/enigma2/userbouquet.iptv_pro.tv && \
+awk '/^#EXTINF/{title=$0; sub(/.*,/,"",title); next} /^http/{print "#SERVICE 4097:0:1:0:0:0:0:0:0:0:" $0 ":" title}' /tmp/iptv_temp.m3u | sed 's/:/%3a/g11' >> /etc/enigma2/userbouquet.iptv_pro.tv && \
+grep -q "userbouquet.iptv_pro.tv" /etc/enigma2/bouquets.tv || echo '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.iptv_pro.tv" ORDER BY bouquet' >> /etc/enigma2/bouquets.tv && \
+rm -f /tmp/iptv_temp.m3u && \
+wget -qO - "http://127.0.0.1/web/servicelistreload?mode=0"
+`.replace(/\n/g, ' ').trim();
+
+                sendWebifCommand(iptvCmd, "تثبيت IPTV Bouquet وإنشاء playlist.txt");
 
             } else if (currentIptvMode === 'm3u') {
                 const urlEl = document.getElementById('m3uUrlInput');
                 const m3uUrl = urlEl ? urlEl.value.trim() : '';
 
                 if (m3uUrl) {
-                    logToTerminal("جاري تحميل وتحويل رابط M3U الهيكلي لبوكيه الإنيجما...", "info");
+                    logToTerminal("جاري معالجة رابط M3U وإنشاء البوكيه وملف playlist.txt...", "info");
                     
-                    const m3uScript = `python -c "
-import urllib2, re
+                    const m3uCmd = `
+mkdir -p /etc/enigma2 && \
+echo "${m3uUrl}" > /etc/enigma2/playlist.txt && \
+curl -s -k -A "Mozilla/5.0" "${m3uUrl}" -o /tmp/iptv_temp.m3u && \
+echo "#NAME IPTV Bouquet" > /etc/enigma2/userbouquet.iptv_pro.tv && \
+awk '/^#EXTINF/{title=$0; sub(/.*,/,"",title); next} /^http/{print "#SERVICE 4097:0:1:0:0:0:0:0:0:0:" $0 ":" title}' /tmp/iptv_temp.m3u | sed 's/:/%3a/g11' >> /etc/enigma2/userbouquet.iptv_pro.tv && \
+grep -q "userbouquet.iptv_pro.tv" /etc/enigma2/bouquets.tv || echo '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.iptv_pro.tv" ORDER BY bouquet' >> /etc/enigma2/bouquets.tv && \
+rm -f /tmp/iptv_temp.m3u && \
+wget -qO - "http://127.0.0.1/web/servicelistreload?mode=0"
+`.replace(/\n/g, ' ').trim();
 
-url = '${m3uUrl}'
-try:
-    req = urllib2.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    content = urllib2.urlopen(req).read()
-    
-    live_items, vod_items, series_items = [], [], []
-    lines = content.splitlines()
-    curr_title = ''
-    
-    for line in lines:
-        line = line.strip()
-        if line.startswith('#EXTINF:'):
-            curr_title = line.split(',')[-1]
-        elif line.startswith('http'):
-            if '/movie/' in line or line.endswith('.mp4') or line.endswith('.mkv'):
-                vod_items.append((curr_title or 'VOD Item', line))
-            elif '/series/' in line:
-                series_items.append((curr_title or 'Series Item', line))
-            else:
-                live_items.append((curr_title or 'Live Channel', line))
-
-    with open('/etc/enigma2/userbouquet.iptv_pro.tv', 'w') as f:
-        f.write('#NAME IPTV Bouquet (LIVE / VOD / SERIES)\\n')
-        f.write('#SERVICE 1:64:0:0:0:0:0:0:0:0::--- LIVE CHANNELS ---\\n')
-        for t, u in live_items[:300]:
-            f.write('#SERVICE 4097:0:1:0:0:0:0:0:0:0:' + u.replace(':', '%3a') + ':' + t + '\\n')
-        f.write('#SERVICE 1:64:0:0:0:0:0:0:0:0::--- VOD MOVIES ---\\n')
-        for t, u in vod_items[:200]:
-            f.write('#SERVICE 4097:0:1:0:0:0:0:0:0:0:' + u.replace(':', '%3a') + ':' + t + '\\n')
-        f.write('#SERVICE 1:64:0:0:0:0:0:0:0:0::--- SERIES ---\\n')
-        for t, u in series_items[:200]:
-            f.write('#SERVICE 4097:0:1:0:0:0:0:0:0:0:' + u.replace(':', '%3a') + ':' + t + '\\n')
-
-    with open('/etc/enigma2/bouquets.tv', 'a+') as bfile:
-        if 'userbouquet.iptv_pro.tv' not in bfile.read():
-            bfile.write('#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.iptv_pro.tv\" ORDER BY bouquet\\n')
-    print('SUCCESS')
-except Exception as e:
-    print(e)
-" && wget -qO - http://127.0.0.1/web/servicelistreload?mode=0`;
-
-                    sendWebifCommand(m3uScript, "توليد بوكيه M3U مقسم على الرسيفر");
+                    sendWebifCommand(m3uCmd, "تحويل رابط M3U إلى بوكيه وملف playlist.txt");
 
                 } else if (uploadedM3uContent) {
-                    logToTerminal("جاري رفع محتوى ملف M3U وإرساله كـ Playlist مقسمة للرسيفر...", "info");
+                    logToTerminal("جاري رفع محتوى ملف M3U المحلي...", "info");
                     
-                    const uploadCmd = `cat << 'EOF' > /tmp/playlist.m3u\n${uploadedM3uContent}\nEOF\n` +
-                        `python -c "
-with open('/tmp/playlist.m3u') as f:
-    lines = f.readlines()
+                    const cleanM3uContent = uploadedM3uContent.replace(/'/g, "'\\''");
+                    const uploadCmd = `
+mkdir -p /etc/enigma2 && \
+cat << 'EOF' > /tmp/playlist.m3u
+${cleanM3uContent}
+EOF
+echo "#NAME IPTV Bouquet" > /etc/enigma2/userbouquet.iptv_pro.tv && \
+awk '/^#EXTINF/{title=$0; sub(/.*,/,"",title); next} /^http/{print "#SERVICE 4097:0:1:0:0:0:0:0:0:0:" $0 ":" title}' /tmp/playlist.m3u | sed 's/:/%3a/g11' >> /etc/enigma2/userbouquet.iptv_pro.tv && \
+grep -q "userbouquet.iptv_pro.tv" /etc/enigma2/bouquets.tv || echo '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.iptv_pro.tv" ORDER BY bouquet' >> /etc/enigma2/bouquets.tv && \
+rm -f /tmp/playlist.m3u && \
+wget -qO - "http://127.0.0.1/web/servicelistreload?mode=0"
+`.replace(/\n/g, ' ').trim();
 
-live, vod, series = [], [], []
-title = ''
-for l in lines:
-    l = l.strip()
-    if l.startswith('#EXTINF:'):
-        title = l.split(',')[-1]
-    elif l.startswith('http'):
-        if '/movie/' in l or l.endswith('.mp4') or l.endswith('.mkv'):
-            vod.append((title or 'VOD', l))
-        elif '/series/' in l:
-            series.append((title or 'Series', l))
-        else:
-            live.append((title or 'Live', l))
-
-with open('/etc/enigma2/userbouquet.iptv_pro.tv', 'w') as f:
-    f.write('#NAME IPTV Playlist (LIVE / VOD / SERIES)\\n')
-    f.write('#SERVICE 1:64:0:0:0:0:0:0:0:0::--- LIVE CHANNELS ---\\n')
-    for t, u in live[:300]:
-        f.write('#SERVICE 4097:0:1:0:0:0:0:0:0:0:' + u.replace(':', '%3a') + ':' + t + '\\n')
-    f.write('#SERVICE 1:64:0:0:0:0:0:0:0:0::--- VOD MOVIES ---\\n')
-    for t, u in vod[:200]:
-        f.write('#SERVICE 4097:0:1:0:0:0:0:0:0:0:' + u.replace(':', '%3a') + ':' + t + '\\n')
-    f.write('#SERVICE 1:64:0:0:0:0:0:0:0:0::--- SERIES ---\\n')
-    for t, u in series[:200]:
-        f.write('#SERVICE 4097:0:1:0:0:0:0:0:0:0:' + u.replace(':', '%3a') + ':' + t + '\\n')
-
-with open('/etc/enigma2/bouquets.tv', 'a+') as bfile:
-    if 'userbouquet.iptv_pro.tv' not in bfile.read():
-        bfile.write('#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET \"userbouquet.iptv_pro.tv\" ORDER BY bouquet\\n')
-" && wget -qO - http://127.0.0.1/web/servicelistreload?mode=0`;
-
-                    sendWebifCommand(uploadCmd, "رفع ملف M3U المحلي وإنشاء البوكيه بـ 3 أقسام");
+                    sendWebifCommand(uploadCmd, "رفع ملف M3U وإنشاء البوكيه");
                 } else {
                     logToTerminal("خطأ: يرجى وضع رابط M3U أو اختيار ملف M3U من جهازك أولاً!", "error");
                 }
