@@ -81,19 +81,19 @@
                 </div>
                 <div>
                     <h1 class="text-lg sm:text-xl font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400">
-                        مركز التحكم الإنيجما Pro Ultra
+                        مركز التحكم الإنيجما Pro Ultra v6.0
                     </h1>
-                    <p class="text-xs text-slate-400">Enigma2 WebTelnet & Direct Installer v5.0 Pro</p>
+                    <p class="text-xs text-slate-400">Enigma2 WebTelnet & Direct Command Generator</p>
                 </div>
             </div>
 
             <div class="flex items-center gap-3">
                 <div id="connectionStatus" class="flex items-center gap-2 bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-full text-xs font-bold text-slate-400">
-                    <span class="w-2.5 h-2.5 rounded-full bg-slate-500 animate-pulse" id="statusDot"></span>
-                    <span id="statusText">جاهز للربط</span>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.8)]" id="statusDot"></span>
+                    <span id="statusText" class="text-emerald-400">جاهز ومفعل</span>
                 </div>
-                <button onclick="detectDeviceAndConnect()" class="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 px-4 py-2 rounded-xl text-xs font-bold transition btn-hover-effect flex items-center gap-2">
-                    <i class="fa-solid fa-microchip"></i> فحص الاتصال بالرسيفر
+                <button onclick="openDirectWebif()" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-4 py-2 rounded-xl text-xs font-bold transition btn-hover-effect flex items-center gap-2">
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i> فتح OpenWebif المباشر
                 </button>
             </div>
         </div>
@@ -102,21 +102,15 @@
     <!-- Main Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
 
-        <!-- Critical HTTPS/Mixed Content Fix Banner -->
-        <div id="httpsWarningBanner" class="bg-amber-500/10 border-2 border-amber-500/40 rounded-2xl p-4 text-xs text-amber-200 shadow-xl">
+        <!-- Solution Banner for Mixed Content -->
+        <div class="bg-slate-900/90 border-2 border-sky-500/40 rounded-2xl p-4 text-xs text-slate-200 shadow-2xl">
             <div class="flex items-start gap-3">
-                <i class="fa-solid fa-shield-cat text-2xl text-amber-400 mt-0.5 animate-bounce"></i>
+                <i class="fa-solid fa-circle-info text-2xl text-sky-400 mt-0.5"></i>
                 <div class="space-y-1.5 flex-grow">
-                    <p class="font-bold text-sm text-amber-300">⚠️ خطوة اختيارية حاسمة لضمان تنفيذ الأوامر عبر المتصفح (Mixed Content Fix):</p>
+                    <p class="font-bold text-sm text-sky-300">💡 طرق التشغيل وتجاوز قيود حظر المتصفحات:</p>
                     <p class="text-slate-300 leading-relaxed">
-                        إذا كنت تفتح اللوحة عبر رابط GitHub Pages، المتصفح يحجب إرسال الأوامر إلى IP الرسيفر المحلي تلقائياً. 
-                        <strong>حل المشكلة في 5 ثوانٍ:</strong> اضغط على 🔒 <strong>رمز القفل/الإعدادات</strong> بجوار رابط الموقع أعلى المتصفح ➔ اختر <strong>Site settings (إعدادات الموقع)</strong> ➔ ابحث عن <strong>Insecure content (المحتوى غير الآمن)</strong> واجعله <strong>Allow (سماح)</strong>، ثم أعد تحميل الصفحة.
+                        عند الضغط على أي أمر، تقوم اللوحة بإرساله فوراً إلى OpenWebif بالرسيفر، بالإضافة إلى إظهار <strong>كود Telnet المباشر</strong> بنقرة واحدة لتتمكن من نسخه ولصقه في برنامج (PuTTY / Terminal) إذا كان متصفحك يمنع الاتصال المباشر.
                     </p>
-                    <div class="pt-1 flex gap-2">
-                        <button onclick="openReceiverTest()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-3 py-1.5 rounded-lg text-xs transition">
-                            <i class="fa-solid fa-external-link ml-1"></i> 1. تجربة فتح رابط الرسيفر المباشر وتأكيد الإذن
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -124,48 +118,37 @@
         <!-- Connection Settings Card -->
         <div class="glass-card rounded-2xl p-5 shadow-xl border border-slate-800/80 neon-glow-blue">
             <h2 class="text-sm font-bold text-sky-400 flex items-center gap-2 mb-4 border-b border-slate-800 pb-2">
-                <i class="fa-solid fa-network-wired"></i> إعدادات الاتصال بالرسيفر (Receiver Credentials)
+                <i class="fa-solid fa-network-wired"></i> إعدادات الاتصال بالرسيفر (Receiver IP)
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
-                    <label class="block text-xs text-slate-400 mb-1.5 font-semibold">IP الرسيفر (IP Address):</label>
+                    <label class="block text-xs text-slate-400 mb-1.5 font-semibold">IP الرسيفر بالشبكة المحلية:</label>
                     <div class="relative">
                         <i class="fa-solid fa-microchip absolute right-3 top-3 text-slate-500 text-xs"></i>
-                        <input type="text" id="ipAddress" placeholder="192.168.1.15" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-9 pl-3 py-2 text-xs text-emerald-400 focus:outline-none focus:border-sky-500 font-mono transition">
+                        <input type="text" id="ipAddress" placeholder="192.168.1.15" value="192.168.1.15" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-9 pl-3 py-2 text-xs text-emerald-400 focus:outline-none focus:border-sky-500 font-mono transition">
                     </div>
                 </div>
                 <div>
                     <label class="block text-xs text-slate-400 mb-1.5 font-semibold">اسم المستخدم (User):</label>
                     <div class="relative">
                         <i class="fa-solid fa-user absolute right-3 top-3 text-slate-500 text-xs"></i>
-                        <input type="text" id="e2User" placeholder="root" value="root" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-9 pl-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono transition">
+                        <input type="text" id="e2User" value="root" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-9 pl-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono transition">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs text-slate-400 mb-1.5 font-semibold">بورت الويب (Port):</label>
+                    <label class="block text-xs text-slate-400 mb-1.5 font-semibold">بورت OpenWebif:</label>
                     <div class="relative">
                         <i class="fa-solid fa-hashtag absolute right-3 top-3 text-slate-500 text-xs"></i>
-                        <input type="text" id="webPort" placeholder="80" value="80" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-9 pl-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono transition">
+                        <input type="text" id="webPort" value="80" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-9 pl-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono transition">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs text-slate-400 mb-1.5 font-semibold">كلمة المرور (Password):</label>
+                    <label class="block text-xs text-slate-400 mb-1.5 font-semibold">كلمة المرور:</label>
                     <div class="relative">
                         <i class="fa-solid fa-key absolute right-3 top-3 text-slate-500 text-xs"></i>
                         <input type="password" id="password" placeholder="root / اتركه فارغ" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-9 pl-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono transition">
                     </div>
                 </div>
-            </div>
-
-            <!-- Detected Device Info Badge -->
-            <div id="deviceInfoBox" class="mt-4 hidden p-3 bg-slate-950/80 rounded-xl border border-sky-500/30 text-xs flex flex-wrap justify-between items-center gap-2">
-                <div class="flex items-center gap-2 text-slate-300">
-                    <i class="fa-solid fa-circle-check text-emerald-400"></i>
-                    <span>حالة الاستجابة: <strong id="detectedStatus" class="text-emerald-400">متصل وجاهز</strong></span>
-                    <span class="text-slate-600">|</span>
-                    <span>الموديل: <strong id="detectedModel" class="text-amber-300">Enigma2 Box</strong></span>
-                </div>
-                <button onclick="detectDeviceAndConnect()" class="text-sky-400 hover:text-sky-300 text-[11px] underline">إعادة الفحص</button>
             </div>
         </div>
 
@@ -182,9 +165,6 @@
             </button>
             <button onclick="switchTab('remote')" id="tab-remote" class="px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:text-white transition whitespace-nowrap">
                 <i class="fa-solid fa-gamepad ml-1.5"></i> الريموت كنترول
-            </button>
-            <button onclick="switchTab('screenshot')" id="tab-screenshot" class="px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:text-white transition whitespace-nowrap">
-                <i class="fa-solid fa-desktop ml-1.5"></i> الشاشة الحية (Live Grab)
             </button>
         </div>
 
@@ -204,20 +184,20 @@
                         <!-- Power Controls Quick Section -->
                         <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80 space-y-2">
                             <label class="block text-xs text-sky-300 font-bold flex items-center gap-1.5">
-                                <i class="fa-solid fa-power-off text-rose-400"></i> أوامر الطاقة المباشرة:
+                                <i class="fa-solid fa-power-off text-rose-400"></i> أوامر التحكم بالطاقة:
                             </label>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                 <button onclick="sendPowerCommand('2')" class="bg-rose-900/30 hover:bg-rose-600/30 border border-rose-500/40 text-rose-300 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
-                                    <i class="fa-solid fa-rotate-right ml-1"></i> إعادة تشغيل (Reboot)
+                                    <i class="fa-solid fa-rotate-right ml-1"></i> Reboot
                                 </button>
                                 <button onclick="sendPowerCommand('3')" class="bg-purple-900/30 hover:bg-purple-600/30 border border-purple-500/40 text-purple-300 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
-                                    <i class="fa-solid fa-arrows-rotate ml-1"></i> إعادة واجهة (Restart GUI)
+                                    <i class="fa-solid fa-arrows-rotate ml-1"></i> Restart GUI
                                 </button>
                                 <button onclick="sendPowerCommand('0')" class="bg-amber-900/30 hover:bg-amber-600/30 border border-amber-500/40 text-amber-300 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
-                                    <i class="fa-solid fa-moon ml-1"></i> وضع الاستعداد (Standby)
+                                    <i class="fa-solid fa-moon ml-1"></i> Standby
                                 </button>
                                 <button onclick="sendPowerCommand('1')" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
-                                    <i class="fa-solid fa-power-off ml-1"></i> إيقاف تشغيل (Deep Standby)
+                                    <i class="fa-solid fa-power-off ml-1"></i> Deep Standby
                                 </button>
                             </div>
                         </div>
@@ -226,55 +206,31 @@
                         <div class="flex gap-2">
                             <div class="relative flex-grow">
                                 <span class="absolute right-3 top-2.5 text-xs text-emerald-500 font-mono font-bold">$</span>
-                                <input type="text" id="customCommand" placeholder="اكتب أمر Telnet مخصص (مثال: opkg update)" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-7 pl-3 py-2 text-xs text-emerald-400 font-mono focus:outline-none focus:border-sky-500 transition">
+                                <input type="text" id="customCommand" placeholder="اكتب أي أمر Telnet (مثال: opkg update)" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-7 pl-3 py-2 text-xs text-emerald-400 font-mono focus:outline-none focus:border-sky-500 transition">
                             </div>
                             <button onclick="executeCustomCommand()" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold px-5 py-2 rounded-xl text-xs transition shadow-lg whitespace-nowrap btn-hover-effect flex items-center gap-1.5">
-                                <i class="fa-solid fa-paper-plane"></i> إرسال الأمر
+                                <i class="fa-solid fa-paper-plane"></i> تنفيذ
                             </button>
                         </div>
 
                         <!-- Category Filters for Presets -->
                         <div class="space-y-3 pt-2">
-                            <label class="block text-xs text-slate-400 font-semibold border-b border-slate-800/80 pb-1">تثبيت البلجنات المحدثة بنقرة واحدة:</label>
+                            <label class="block text-xs text-slate-400 font-semibold border-b border-slate-800/80 pb-1">تثبيت أشهر الإضافات والسكربتات بنقرة واحدة:</label>
                             
-                            <!-- Maintenance & Tools -->
                             <div>
-                                <span class="text-[11px] text-sky-400 font-bold block mb-2"><i class="fa-solid fa-screwdriver-wrench ml-1"></i> أدوات وصيانة النظام:</span>
-                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                    <button onclick="runSmartCommand('update')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-rotate text-sky-400"></i>
-                                        <span class="font-bold">تحديث السورس (Opkg)</span>
-                                    </button>
-                                    <button onclick="runSmartCommand('clearcache')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-broom text-teal-400"></i>
-                                        <span class="font-bold">تنظيف RAM</span>
-                                    </button>
-                                    <button onclick="runSmartCommand('remove_crash')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-trash text-rose-400"></i>
-                                        <span class="font-bold">حذف Crash Logs</span>
-                                    </button>
-                                    <button onclick="runSmartCommand('network_fix')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-network-wired text-indigo-400"></i>
-                                        <span class="font-bold">إعادة ضبط الشبكة</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Must-Have Plugins -->
-                            <div>
-                                <span class="text-[11px] text-amber-400 font-bold block mb-2"><i class="fa-solid fa-box-open ml-1"></i> أشهر البلجنات الإضافية (Plugins):</span>
+                                <span class="text-[11px] text-amber-400 font-bold block mb-2"><i class="fa-solid fa-box-open ml-1"></i> البلجنات الأساسية:</span>
                                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
                                     <button onclick="runSmartCommand('ajpanel')" class="bg-slate-900/90 hover:bg-slate-800 border border-amber-500/30 rounded-xl p-2.5 text-xs text-amber-300 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-cubes text-amber-400"></i>
-                                        <span class="font-bold">AJPanel المحترف</span>
+                                        <span class="font-bold">AJPanel</span>
                                     </button>
                                     <button onclick="runSmartCommand('e2iplayer')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-play text-red-400"></i>
-                                        <span class="font-bold">E2iPlayer + TSiplayer</span>
+                                        <span class="font-bold">E2iPlayer</span>
                                     </button>
                                     <button onclick="runSmartCommand('subssupport')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-closed-captioning text-emerald-400"></i>
-                                        <span class="font-bold">SubSSupport الترجمة</span>
+                                        <span class="font-bold">SubSSupport</span>
                                     </button>
                                     <button onclick="runSmartCommand('multistalker')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-ghost text-purple-400"></i>
@@ -286,15 +242,15 @@
                                     </button>
                                     <button onclick="runSmartCommand('ipaudio')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-music text-yellow-400"></i>
-                                        <span class="font-bold">IPAudio الصوتيات</span>
+                                        <span class="font-bold">IPAudio</span>
                                     </button>
                                     <button onclick="runSmartCommand('arabicsaver')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
                                         <i class="fa-solid fa-language text-emerald-400"></i>
                                         <span class="font-bold">Arabic Saver</span>
                                     </button>
-                                    <button onclick="runSmartCommand('openmultiboot')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-hard-drive text-indigo-400"></i>
-                                        <span class="font-bold">OpenMultiboot</span>
+                                    <button onclick="runSmartCommand('clearcache')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
+                                        <i class="fa-solid fa-broom text-teal-400"></i>
+                                        <span class="font-bold">تنظيف ذاكرة RAM</span>
                                     </button>
                                 </div>
                             </div>
@@ -304,25 +260,11 @@
 
                 <!-- 2. IPTV Panel -->
                 <div id="content-iptv" class="hidden glass-card rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <h2 class="text-sm font-bold text-indigo-400 flex items-center gap-2">
-                            <i class="fa-solid fa-tv"></i> تثبيت وإدارة اشتراكات M3U & IPTV Bouquets
-                        </h2>
-                        <span class="text-[10px] bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 px-2 py-0.5 rounded-full font-bold">Direct Stream Method</span>
-                    </div>
+                    <h2 class="text-sm font-bold text-indigo-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+                        <i class="fa-solid fa-tv"></i> تثبيت وإدارة اشتراكات M3U & IPTV
+                    </h2>
 
-                    <!-- Mode Selector Tabs for IPTV -->
-                    <div class="grid grid-cols-2 gap-2 bg-slate-950/70 p-1.5 rounded-xl border border-slate-800">
-                        <button onclick="setIptvMode('xtream')" id="btn-iptv-xtream" class="py-1.5 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow">
-                            <i class="fa-solid fa-server ml-1"></i> بيانات Xtream API
-                        </button>
-                        <button onclick="setIptvMode('m3u')" id="btn-iptv-m3u" class="py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white">
-                            <i class="fa-solid fa-file-code ml-1"></i> رابط M3U مباشر
-                        </button>
-                    </div>
-
-                    <!-- Mode 1: Xtream Credentials -->
-                    <div id="iptvXtreamBox" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
                             <label class="block text-xs text-slate-400 mb-1 font-semibold">الهوست مع البورت:</label>
                             <input type="text" id="iptvHost" placeholder="http://iptv.com:8080" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-indigo-500">
@@ -337,81 +279,52 @@
                         </div>
                     </div>
 
-                    <!-- Mode 2: M3U Link -->
-                    <div id="iptvM3uBox" class="hidden space-y-3">
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1 font-semibold">رابط ملف M3U المباشر (Direct M3U URL):</label>
-                            <input type="text" id="m3uUrlInput" placeholder="http://example.com/get.php?username=xxx&password=yyy&type=m3u_plus" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-amber-300 font-mono focus:outline-none focus:border-amber-500">
-                        </div>
-                    </div>
-
-                    <!-- Action Buttons -->
-                    <div class="flex flex-col sm:flex-row gap-2 pt-1">
-                        <button onclick="installIPTVBouquet()" class="flex-grow bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow-lg transition btn-hover-effect flex items-center justify-center gap-2">
-                            <i class="fa-solid fa-download"></i> إرسال أمر تثبيت القنوات وملف playlist.txt للرسيفر
-                        </button>
-                        <button onclick="reloadBouquets()" class="bg-slate-900 hover:bg-slate-800 border border-slate-700 text-sky-400 font-bold py-2.5 px-4 rounded-xl text-xs transition btn-hover-effect flex items-center justify-center gap-1.5">
-                            <i class="fa-solid fa-arrows-rotate"></i> تحديث قائمة القنوات بالرسيفر
-                        </button>
-                    </div>
+                    <button onclick="installIPTVBouquet()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow-lg transition btn-hover-effect flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-download"></i> توليد أمر تثبيت القنوات وملف playlist.txt
+                    </button>
                 </div>
 
                 <!-- 3. Cam Generator Panel -->
                 <div id="content-cam" class="hidden glass-card rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl neon-glow-emerald">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
-                        <h2 class="text-sm font-bold text-emerald-400 flex items-center gap-2">
-                            <i class="fa-solid fa-server"></i> مولد ومحول سيرفرات الشيرينج (Cam Config)
-                        </h2>
-                    </div>
+                    <h2 class="text-sm font-bold text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-2">
+                        <i class="fa-solid fa-server"></i> مولد ومحول سيرفرات الشيرينج (Cam Config)
+                    </h2>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-950/60 p-3 rounded-xl border border-slate-800/80">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                         <div>
-                            <label class="block text-xs text-slate-400 mb-1 font-semibold">الإيمو المستهدف بالرسيفر:</label>
+                            <label class="block text-xs text-slate-400 mb-1 font-semibold">نوع الإيمو:</label>
                             <select id="camType" onchange="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-emerald-400 font-bold focus:outline-none focus:border-sky-500">
                                 <option value="oscam">OScam (oscam.server)</option>
                                 <option value="ncam">NCam (ncam.server)</option>
                                 <option value="cccam">CCcam (CCcam.cfg)</option>
                             </select>
                         </div>
-                    </div>
-
-                    <div id="manualFieldsContainer" class="space-y-3">
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                            <div>
-                                <label class="block text-xs text-slate-400 mb-1 font-semibold">اسم السيرفر (Label):</label>
-                                <input type="text" id="camName" value="Server1" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200">
-                            </div>
-                            <div class="sm:col-span-2">
-                                <label class="block text-xs text-slate-400 mb-1 font-semibold">الهوست (Host / IP):</label>
-                                <input type="text" id="camHost" placeholder="cccam.example.com" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                            <div>
-                                <label class="block text-xs text-slate-400 mb-1 font-semibold">البورت (Port):</label>
-                                <input type="text" id="camPort" placeholder="12000" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-slate-400 mb-1 font-semibold">المستخدم (User):</label>
-                                <input type="text" id="camUser" placeholder="username" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-slate-400 mb-1 font-semibold">كلمة السر (Password):</label>
-                                <input type="text" id="camPass" placeholder="password" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
-                            </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 font-semibold">الهوست (Host / IP):</label>
+                            <input type="text" id="camHost" placeholder="cccam.example.com" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
                         </div>
                     </div>
 
-                    <div>
-                        <textarea id="readerPreview" readonly rows="5" class="w-full bg-terminalBg border border-slate-800 rounded-xl p-3 text-xs text-emerald-400 font-mono focus:outline-none text-left leading-relaxed"></textarea>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 font-semibold">البورت (Port):</label>
+                            <input type="text" id="camPort" placeholder="12000" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 font-semibold">المستخدم (User):</label>
+                            <input type="text" id="camUser" placeholder="username" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-400 mb-1 font-semibold">كلمة السر (Password):</label>
+                            <input type="text" id="camPass" placeholder="password" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
+                        </div>
                     </div>
 
-                    <div class="flex gap-2">
-                        <button onclick="sendCamToServer()" class="flex-grow bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow-lg transition btn-hover-effect">
-                            <i class="fa-solid fa-cloud-arrow-up"></i> إرسال الملف للرسيفر وتنشيطه
-                        </button>
-                    </div>
+                    <textarea id="readerPreview" readonly rows="4" class="w-full bg-terminalBg border border-slate-800 rounded-xl p-3 text-xs text-emerald-400 font-mono focus:outline-none text-left leading-relaxed"></textarea>
+
+                    <button onclick="sendCamToServer()" class="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow-lg transition btn-hover-effect">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> إرسال السيرفر وتنشيطه بالرسيفر
+                    </button>
                 </div>
 
                 <!-- 4. Remote Control Panel -->
@@ -440,32 +353,15 @@
                     </div>
                 </div>
 
-                <!-- 5. Live Screenshot -->
-                <div id="content-screenshot" class="hidden glass-card rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-                        <h2 class="text-sm font-bold text-sky-400 flex items-center gap-2">
-                            <i class="fa-solid fa-desktop"></i> التقاط الشاشة الحية (Live Screenshot)
-                        </h2>
-                        <button onclick="fetchScreenshot()" class="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 px-3 py-1 rounded-xl text-xs font-bold transition">
-                            <i class="fa-solid fa-arrows-rotate"></i> تحديث اللقطة
-                        </button>
-                    </div>
-
-                    <div class="min-h-[220px] bg-slate-950 rounded-2xl border border-slate-800 flex items-center justify-center p-2">
-                        <img id="grabImg" class="hidden max-w-full h-auto rounded-xl shadow-2xl">
-                        <p id="grabPlaceholder" class="text-xs text-slate-500">اضغط "تحديث اللقطة" للفيو المباشر</p>
-                    </div>
-                </div>
-
             </div>
 
-            <!-- Column 3: Live Terminal Logger (Right) -->
+            <!-- Column 3: Live Terminal Logger & Command Output (Right) -->
             <div class="lg:col-span-1">
-                <div class="sticky top-20 glass-card border border-slate-800/80 rounded-2xl p-4 shadow-2xl font-mono flex flex-col h-[560px] neon-glow-blue">
+                <div class="sticky top-20 glass-card border border-slate-800/80 rounded-2xl p-4 shadow-2xl font-mono flex flex-col h-[520px] neon-glow-blue">
                     <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-800">
                         <div class="flex items-center gap-2 text-xs text-slate-300">
                             <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                            <span class="font-bold">سجل الأوامر (Terminal Log)</span>
+                            <span class="font-bold">كود الأمر والنتيجة (Command Log)</span>
                         </div>
                         <button onclick="clearTerminal()" class="text-xs text-slate-500 hover:text-rose-400 transition" title="مسح السجل">
                             <i class="fa-solid fa-trash-can"></i>
@@ -473,8 +369,12 @@
                     </div>
 
                     <div id="terminalLog" class="flex-grow overflow-y-auto terminal-scroll text-xs space-y-2.5 text-left p-2.5 bg-terminalBg/95 rounded-xl border border-slate-900">
-                        <div class="text-slate-500 font-sans">[النظام]: اللوحة جاهزة v5.0.</div>
+                        <div class="text-slate-400 font-sans">[النظام]: اختر أو اكتب أي أمر لتنفيذه وحفظ الكود المباشر.</div>
                     </div>
+                    
+                    <button onclick="copyLastCommand()" class="mt-3 bg-slate-800 hover:bg-slate-700 text-sky-400 text-xs py-2 rounded-xl font-bold transition flex items-center justify-center gap-2 border border-slate-700">
+                        <i class="fa-solid fa-copy"></i> نسخ آخر أمر للـ Terminal
+                    </button>
                 </div>
             </div>
 
@@ -482,35 +382,23 @@
 
     </div>
 
-    <!-- Hidden Execution Frame -->
-    <iframe name="e2_command_frame" id="e2_command_frame" class="hidden"></iframe>
-
     <script>
         const SMART_COMMANDS = {
             update: "opkg update",
             clearcache: "sync && echo 3 > /proc/sys/vm/drop_caches",
-            remove_crash: "rm -rf /home/root/enigma2_crash*.log /tmp/*.log",
-            network_fix: "/etc/init.d/networking restart",
-
             ajpanel: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/biko-73/AjPanel/main/installer.sh -O - | script -c /dev/null",
             e2iplayer: "wget --no-check-certificate https://raw.githubusercontent.com/MOHAMED19OS/Download-E2iPlayer/main/installer.sh -O - | script -c /dev/null",
             subssupport: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/MOHAMED19OS/SubSSupport/main/installer.sh -O - | script -c /dev/null",
             multistalker: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/ziko-99/MultiStalker/main/installer.sh -O - | script -c /dev/null",
             iptosat: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/ziko-99/IPToSAT/main/installer.sh -O - | script -c /dev/null",
             ipaudio: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/ziko-99/ipaudio/main/installer.sh -O - | script -c /dev/null",
-            arabicsaver: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/biko-73/ArabicSaver/main/installer.sh -O - | script -c /dev/null",
-            openmultiboot: "opkg update && opkg install enigma2-plugin-extensions-openmultiboot"
+            arabicsaver: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/biko-73/ArabicSaver/main/installer.sh -O - | script -c /dev/null"
         };
 
-        let currentIptvMode = 'xtream';
-
-        window.onload = function() {
-            loadSavedConfig();
-            generateReaderPreview();
-        };
+        let lastCmd = "";
 
         function switchTab(tabId) {
-            ['telnet', 'remote', 'cam', 'iptv', 'screenshot'].forEach(t => {
+            ['telnet', 'remote', 'cam', 'iptv'].forEach(t => {
                 const c = document.getElementById(`content-${t}`);
                 const b = document.getElementById(`tab-${t}`);
                 if (c && b) {
@@ -527,74 +415,16 @@
             }
         }
 
-        function loadSavedConfig() {
-            const ip = localStorage.getItem('e2_ip') || '';
-            const user = localStorage.getItem('e2_user') || 'root';
-            const port = localStorage.getItem('e2_port') || '80';
-            const pass = localStorage.getItem('e2_pass') || '';
-
-            if (ip) document.getElementById('ipAddress').value = ip;
-            if (user) document.getElementById('e2User').value = user;
-            if (port) document.getElementById('webPort').value = port;
-            if (pass) document.getElementById('password').value = pass;
+        function getIp() {
+            return document.getElementById('ipAddress').value.trim() || '192.168.1.15';
         }
 
-        function saveConfig() {
-            const ip = document.getElementById('ipAddress').value.trim();
-            const user = document.getElementById('e2User').value.trim() || 'root';
-            const port = document.getElementById('webPort').value.trim() || '80';
-            const pass = document.getElementById('password').value.trim();
-
-            localStorage.setItem('e2_ip', ip);
-            localStorage.setItem('e2_user', user);
-            localStorage.setItem('e2_port', port);
-            localStorage.setItem('e2_pass', pass);
-            return { ip, user, port, pass };
+        function getPort() {
+            return document.getElementById('webPort').value.trim() || '80';
         }
 
-        function openReceiverTest() {
-            const { ip, port } = saveConfig();
-            if (!ip) {
-                alert("يرجى أدخال IP الرسيفر أولاً!");
-                return;
-            }
-            window.open(`http://${ip}:${port}/`, '_blank');
-        }
-
-        function detectDeviceAndConnect() {
-            const { ip, port } = saveConfig();
-            if (!ip) {
-                logToTerminal("خطأ: يرجى كتابة IP الرسيفر أولاً!", "error");
-                return;
-            }
-
-            logToTerminal(`جاري اختبار الاتصال بالرسيفر (${ip}:${port})...`, "info");
-
-            const img = new Image();
-            img.onload = function() {
-                updateStatus(true, "متصل ومستجيب");
-                logToTerminal("تم الاتصال بالرسيفر بنجاح!", "success");
-            };
-            img.onerror = function() {
-                // If blocked by Mixed Content or invalid IP
-                updateStatus(false, "انتبه: قيود أمان المتصفح");
-                logToTerminal("تنبيه: المتصفح قد يحجب تنفيذ الأوامر المباشرة! اضغط الزر الأصفر بالأعلى لتفعيل إذن OpenWebif لمرة واحدة.", "error");
-            };
-            img.src = `http://${ip}:${port}/grab?format=jpg&r=` + Math.random();
-        }
-
-        function updateStatus(isConnected, message) {
-            const statusDot = document.getElementById('statusDot');
-            const statusText = document.getElementById('statusText');
-            if (isConnected) {
-                statusDot.className = "w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.8)]";
-                statusText.innerText = message || "متصل";
-                statusText.className = "text-emerald-400 font-bold";
-            } else {
-                statusDot.className = "w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse";
-                statusText.innerText = message || "تنبيه اتصال";
-                statusText.className = "text-amber-400 font-bold";
-            }
+        function openDirectWebif() {
+            window.open(`http://${getIp()}:${getPort()}/`, '_blank');
         }
 
         function logToTerminal(msg, type = 'info') {
@@ -605,143 +435,91 @@
             let colorClass = "text-slate-300";
             if (type === 'success') colorClass = "text-emerald-400 font-bold";
             if (type === 'error') colorClass = "text-rose-400 font-bold";
-            if (type === 'info') colorClass = "text-sky-400";
+            if (type === 'cmd') colorClass = "text-sky-300 font-mono select-all bg-slate-900 p-1.5 rounded border border-slate-800 break-all";
 
             const logEntry = document.createElement('div');
             logEntry.className = colorClass;
-            logEntry.innerHTML = `<span class="text-slate-600 font-mono">[${time}]</span> ${msg}`;
+            if(type === 'cmd') {
+                logEntry.innerHTML = msg;
+            } else {
+                logEntry.innerHTML = `<span class="text-slate-500 font-mono">[${time}]</span> ${msg}`;
+            }
             
             terminal.appendChild(logEntry);
             terminal.scrollTop = terminal.scrollHeight;
         }
 
         function clearTerminal() {
-            document.getElementById('terminalLog').innerHTML = '<div class="text-slate-500">[System]: تم مسح السجل.</div>';
+            document.getElementById('terminalLog').innerHTML = '<div class="text-slate-400">[System]: تم مسح السجل.</div>';
         }
 
         function sendWebifCommand(command, description) {
-            const { ip, port } = saveConfig();
-            if (!ip) {
-                logToTerminal("خطأ: يرجى كتابة IP الرسيفر!", "error");
-                return;
-            }
+            lastCmd = command;
+            const ip = getIp();
+            const port = getPort();
 
-            logToTerminal(`جاري إرسال: [${description}]...`, "info");
+            logToTerminal(`أمر [${description}]:`, "success");
+            logToTerminal(command, "cmd");
 
-            // Method 1: Form Shell Post
-            let form = document.getElementById('dynamic_e2_form');
-            if (form) form.remove();
-
-            form = document.createElement('form');
-            form.id = 'dynamic_e2_form';
-            form.method = 'GET';
-            form.action = `http://${ip}:${port}/web/shell`;
-            form.target = 'e2_command_frame';
-
-            const inputCmd = document.createElement('input');
-            inputCmd.type = 'hidden';
-            inputCmd.name = 'command';
-            inputCmd.value = command;
-
-            form.appendChild(inputCmd);
-            document.body.appendChild(form);
-
-            try {
-                form.submit();
-                logToTerminal(`تم بث أمر Telnet للرسيفر بنجاح: ${description}`, "success");
-            } catch (e) {
-                logToTerminal(`خطأ الإرسال: ${e.message}`, "error");
-            }
-
-            // Method 2: Fallback Image/Script Beacon Trigger
+            // Direct Beacon Request
             const beaconUrl = `http://${ip}:${port}/web/shell?command=${encodeURIComponent(command)}&r=` + Math.random();
             const beacon = new Image();
             beacon.src = beaconUrl;
         }
 
+        function copyLastCommand() {
+            if(!lastCmd) {
+                alert("لا يوجد أمر مسجل للنسخ!");
+                return;
+            }
+            const textarea = document.createElement('textarea');
+            textarea.value = lastCmd;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert("تم نسخ الأمر بنجاح إلى الحافظة!");
+        }
+
         function executeCustomCommand() {
             const cmd = document.getElementById('customCommand').value.trim();
             if (!cmd) return;
-            sendWebifCommand(cmd, `أمر مخصص: ${cmd}`);
+            sendWebifCommand(cmd, `أمر مخصص`);
             document.getElementById('customCommand').value = '';
         }
 
         function runSmartCommand(key) {
             const cmd = SMART_COMMANDS[key];
-            if (cmd) sendWebifCommand(cmd, `تثبيت/تشغيل: ${key}`);
+            if (cmd) sendWebifCommand(cmd, `تثبيت ${key}`);
         }
 
         function sendPowerCommand(code) {
-            const { ip, port } = saveConfig();
-            if (!ip) return;
             const img = new Image();
-            img.src = `http://${ip}:${port}/web/powerstate?newstate=${code}&r=` + Math.random();
-            logToTerminal(`تم تنفيذ أمر الطاقة (${code})`, "success");
+            img.src = `http://${getIp()}:${getPort()}/web/powerstate?newstate=${code}&r=` + Math.random();
+            logToTerminal(`تم إرسال أمر الطاقة (${code})`, "success");
         }
 
         function sendRCKey(keyCode) {
-            const { ip, port } = saveConfig();
-            if (!ip) return;
             const rcImg = new Image();
-            rcImg.src = `http://${ip}:${port}/web/remotecontrol?command=${keyCode}&r=` + Math.random();
+            rcImg.src = `http://${getIp()}:${getPort()}/web/remotecontrol?command=${keyCode}&r=` + Math.random();
             logToTerminal(`زر الريموت: ${keyCode}`, "info");
         }
 
-        function setIptvMode(mode) {
-            currentIptvMode = mode;
-            if (mode === 'xtream') {
-                document.getElementById('iptvXtreamBox').classList.remove('hidden');
-                document.getElementById('iptvM3uBox').classList.add('hidden');
-                document.getElementById('btn-iptv-xtream').className = "py-1.5 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow";
-                document.getElementById('btn-iptv-m3u').className = "py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white";
-            } else {
-                document.getElementById('iptvXtreamBox').classList.add('hidden');
-                document.getElementById('iptvM3uBox').classList.remove('hidden');
-                document.getElementById('btn-iptv-m3u').className = "py-1.5 rounded-lg text-xs font-bold transition bg-indigo-600 text-white shadow";
-                document.getElementById('btn-iptv-xtream').className = "py-1.5 rounded-lg text-xs font-bold transition text-slate-400 hover:text-white";
-            }
-        }
-
         function installIPTVBouquet() {
-            let m3uUrl = '';
-            if (currentIptvMode === 'xtream') {
-                const host = document.getElementById('iptvHost').value.trim();
-                const user = document.getElementById('iptvUser').value.trim();
-                const pass = document.getElementById('iptvPass').value.trim();
-                if (!host || !user || !pass) {
-                    logToTerminal("أدخل جميع بيانات الـ Xtream!", "error");
-                    return;
-                }
-                m3uUrl = `${host}/get.php?username=${user}&password=${pass}&type=m3u_plus`;
-            } else {
-                m3uUrl = document.getElementById('m3uUrlInput').value.trim();
-                if (!m3uUrl) {
-                    logToTerminal("أدخل رابط M3U المباشر!", "error");
-                    return;
-                }
+            const host = document.getElementById('iptvHost').value.trim();
+            const user = document.getElementById('iptvUser').value.trim();
+            const pass = document.getElementById('iptvPass').value.trim();
+            if (!host || !user || !pass) {
+                alert("يرجى إدخال كافة بيانات IPTV!");
+                return;
             }
-
-            const shellScript = `
-mkdir -p /etc/enigma2 && \
-echo "${m3uUrl}" > /etc/enigma2/playlist.txt && \
-wget -qO /tmp/iptv.m3u "${m3uUrl}" || curl -s "${m3uUrl}" -o /tmp/iptv.m3u && \
-echo "#NAME IPTV Bouquet" > /etc/enigma2/userbouquet.iptv_pro.tv && \
-awk '/^#EXTINF/{title=$0; sub(/.*,/,"",title); next} /^http/{print "#SERVICE 4097:0:1:0:0:0:0:0:0:0:" $0 ":" title}' /tmp/iptv.m3u >> /etc/enigma2/userbouquet.iptv_pro.tv && \
-grep -q "userbouquet.iptv_pro.tv" /etc/enigma2/bouquets.tv || echo '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.iptv_pro.tv" ORDER BY bouquet' >> /etc/enigma2/bouquets.tv && \
-rm -f /tmp/iptv.m3u && \
-wget -qO - "http://127.0.0.1/web/servicelistreload?mode=0"
-`.replace(/\n/g, ' ').trim();
-
-            sendWebifCommand(shellScript, "تحميل القنوات وتثبيت البوكيه وملف playlist.txt");
-        }
-
-        function reloadBouquets() {
-            sendWebifCommand("wget -qO - http://127.0.0.1/web/servicelistreload?mode=0", "تحديث البوكيهات بالرسيفر");
+            const m3uUrl = `${host}/get.php?username=${user}&password=${pass}&type=m3u_plus`;
+            const cmd = `mkdir -p /etc/enigma2 && echo "${m3uUrl}" > /etc/enigma2/playlist.txt && wget -qO /tmp/iptv.m3u "${m3uUrl}" && echo "#NAME IPTV Bouquet" > /etc/enigma2/userbouquet.iptv_pro.tv && awk '/^#EXTINF/{title=$0; sub(/.*,/,"",title); next} /^http/{print "#SERVICE 4097:0:1:0:0:0:0:0:0:0:" $0 ":" title}' /tmp/iptv.m3u >> /etc/enigma2/userbouquet.iptv_pro.tv && grep -q "userbouquet.iptv_pro.tv" /etc/enigma2/bouquets.tv || echo '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.iptv_pro.tv" ORDER BY bouquet' >> /etc/enigma2/bouquets.tv && rm -f /tmp/iptv.m3u && wget -qO - "http://127.0.0.1/web/servicelistreload?mode=0"`;
+            sendWebifCommand(cmd, "تثبيت IPTV و البوكيهات");
         }
 
         function generateReaderPreview() {
             const emuType = document.getElementById('camType').value;
-            const name = document.getElementById('camName').value || 'Server1';
             const host = document.getElementById('camHost').value || 'host.com';
             const port = document.getElementById('camPort').value || '12000';
             const user = document.getElementById('camUser').value || 'user';
@@ -749,7 +527,7 @@ wget -qO - "http://127.0.0.1/web/servicelistreload?mode=0"
 
             let output = '';
             if (emuType === 'oscam' || emuType === 'ncam') {
-                output = `[reader]\nlabel = ${name}\nprotocol = cccam\ndevice = ${host},${port}\nuser = ${user}\npassword = ${pass}\ninactivitytimeout = 30\ngroup = 1\nccckeepalive = 1`;
+                output = `[reader]\nlabel = Server1\nprotocol = cccam\ndevice = ${host},${port}\nuser = ${user}\npassword = ${pass}\ninactivitytimeout = 30\ngroup = 1\nccckeepalive = 1`;
             } else {
                 output = `C: ${host} ${port} ${user} ${pass}`;
             }
@@ -760,22 +538,8 @@ wget -qO - "http://127.0.0.1/web/servicelistreload?mode=0"
             const emuType = document.getElementById('camType').value;
             const readerCode = document.getElementById('readerPreview').value.trim();
             let targetPath = emuType === 'cccam' ? '/etc/CCcam.cfg' : `/etc/tuxbox/config/${emuType}.server`;
-
             const cmd = `echo '${readerCode}' >> ${targetPath} && /etc/init.d/softcam restart`;
             sendWebifCommand(cmd, `إرسال سيرفر إلى ${targetPath}`);
-        }
-
-        function fetchScreenshot() {
-            const { ip, port } = saveConfig();
-            if (!ip) return;
-            const img = document.getElementById('grabImg');
-            const placeholder = document.getElementById('grabPlaceholder');
-
-            img.onload = function() {
-                img.classList.remove('hidden');
-                placeholder.classList.add('hidden');
-            };
-            img.src = `http://${ip}:${port}/grab?format=jpg&r=` + Math.random();
         }
     </script>
 </body>
