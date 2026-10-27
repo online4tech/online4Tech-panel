@@ -83,7 +83,7 @@
                     <h1 class="text-lg sm:text-xl font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400">
                         مركز التحكم الإنيجما Pro Ultra
                     </h1>
-                    <p class="text-xs text-slate-400">Enigma2 WebTelnet & Remote Control Suite v3.0</p>
+                    <p class="text-xs text-slate-400">Enigma2 WebTelnet & Remote Control Suite v3.2</p>
                 </div>
             </div>
 
@@ -107,9 +107,9 @@
             <div class="flex items-start gap-3">
                 <i class="fa-solid fa-triangle-exclamation text-lg mt-0.5 text-amber-400"></i>
                 <div class="space-y-1">
-                    <p class="font-bold">تنبيه لبيئة الأمان (HTTPS Browser Guard):</p>
+                    <p class="font-bold">تنبيه هام للغاية للمتصفح (Insecure Content / Mixed Content):</p>
                     <p class="text-slate-300">
-                        في حال استخدام هذا الموقع عبر HTTPS (مثل GitHub Pages)، يرجى السماح بـ <strong>Insecure Content / Mixed Content</strong> في إعدادات المتصفح لضمان وصول الأوامر للرسيفر المحلي.
+                        إذا لم تظهر لقطة الشاشة أو تنفذ أوامر الإعادة، يرجى الضغط على <strong>أيقونة القفل 🔒</strong> بجانب رابط الموقع بالمتصفح ➔ اختر <strong>Site Settings</strong> ➔ اضبط <strong>Insecure Content</strong> على <strong>Allow (سماح)</strong> ثم اعمل تحديث للصفحة.
                     </p>
                 </div>
             </div>
@@ -158,9 +158,9 @@
                 <div class="space-y-1">
                     <div class="font-bold text-sky-300 flex items-center gap-2">
                         <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
-                        <span>الاتصال المحلي فعال وتأكيدي:</span>
+                        <span>تم تجهيز عنوان الرسيفر:</span>
                     </div>
-                    <p class="text-slate-300">فتح واجهة Webif مرة واحدة يضمن السماح للمتصفح بإرسال جميع أوامر Telnet والريموت بسلاسة.</p>
+                    <p class="text-slate-300">في حال عدم الاستجابة، فتح واجهة Webif في تبويب جانبي يضمن إعطاء الإذن للمتصفح بالاتصال المباشر.</p>
                 </div>
                 <a id="directWebifLink" href="#" target="_blank" class="bg-gradient-to-r from-sky-500 to-blue-600 text-white font-bold px-4 py-2 rounded-xl text-xs hover:from-sky-400 hover:to-blue-500 transition shadow-lg whitespace-nowrap btn-hover-effect">
                     <i class="fa-solid fa-arrow-up-right-from-square"></i> فتح واجهة الرسيفر (Webif)
@@ -200,6 +200,27 @@
                             <i class="fa-solid fa-terminal"></i> إرسال أوامر Telnet وبلجنات جاهزة (Quick Telnet Engine)
                         </h2>
 
+                        <!-- Power Controls Quick Section -->
+                        <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80 space-y-2">
+                            <label class="block text-xs text-sky-300 font-bold flex items-center gap-1.5">
+                                <i class="fa-solid fa-power-off text-rose-400"></i> أوامر الطاقة المباشرة (Direct Webif Power API):
+                            </label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                <button onclick="sendPowerCommand('2')" class="bg-rose-900/30 hover:bg-rose-600/30 border border-rose-500/40 text-rose-300 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
+                                    <i class="fa-solid fa-rotate-right ml-1"></i> إعادة تشغيل (Reboot)
+                                </button>
+                                <button onclick="sendPowerCommand('3')" class="bg-purple-900/30 hover:bg-purple-600/30 border border-purple-500/40 text-purple-300 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
+                                    <i class="fa-solid fa-arrows-rotate ml-1"></i> إعادة واجهة (Restart GUI)
+                                </button>
+                                <button onclick="sendPowerCommand('0')" class="bg-amber-900/30 hover:bg-amber-600/30 border border-amber-500/40 text-amber-300 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
+                                    <i class="fa-solid fa-moon ml-1"></i> وضع الاستعداد (Standby)
+                                </button>
+                                <button onclick="sendPowerCommand('1')" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
+                                    <i class="fa-solid fa-power-off ml-1"></i> إيقاف تشغيل (Deep Standby)
+                                </button>
+                            </div>
+                        </div>
+
                         <!-- Custom Command Input -->
                         <div class="flex gap-2">
                             <div class="relative flex-grow">
@@ -227,10 +248,6 @@
                                     <i class="fa-solid fa-broom text-teal-400 text-base"></i>
                                     <span class="font-bold">تنظيف الذاكرة (RAM)</span>
                                 </button>
-                                <button onclick="runPresetCommand('restart_gui')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-3 text-xs text-slate-200 flex flex-col items-center gap-1.5 transition btn-hover-effect">
-                                    <i class="fa-solid fa-arrows-rotate text-purple-400 text-base"></i>
-                                    <span class="font-bold">إعادة واجهة GUI</span>
-                                </button>
                                 <button onclick="runPresetCommand('e2iplayer')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-3 text-xs text-slate-200 flex flex-col items-center gap-1.5 transition btn-hover-effect">
                                     <i class="fa-solid fa-play text-red-400 text-base"></i>
                                     <span class="font-bold">تثبيت E2iPlayer</span>
@@ -242,10 +259,6 @@
                                 <button onclick="runPresetCommand('network_fix')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-3 text-xs text-slate-200 flex flex-col items-center gap-1.5 transition btn-hover-effect">
                                     <i class="fa-solid fa-network-wired text-indigo-400 text-base"></i>
                                     <span class="font-bold">إعادة ضبط الشبكة</span>
-                                </button>
-                                <button onclick="runPresetCommand('reboot')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-3 text-xs text-slate-200 flex flex-col items-center gap-1.5 transition btn-hover-effect">
-                                    <i class="fa-solid fa-power-off text-rose-500 text-base"></i>
-                                    <span class="font-bold">إعادة تشغيل الجهاز</span>
                                 </button>
                             </div>
                         </div>
@@ -421,7 +434,7 @@
                 <!-- 4. IPTV Panel -->
                 <div id="content-iptv" class="hidden glass-card rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl">
                     <h2 class="text-sm font-bold text-indigo-400 flex items-center gap-2 border-b border-slate-800 pb-2">
-                        <i class="fa-solid fa-tv"></i> تثبيت وااشتراك IPTV Bouquets تلقائياً
+                        <i class="fa-solid fa-tv"></i> تثبيت اشتراك IPTV Bouquets تلقائياً
                     </h2>
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
                         <div>
@@ -449,20 +462,32 @@
 
                 <!-- 5. Live Screenshot Grab Panel -->
                 <div id="content-screenshot" class="hidden glass-card rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl">
-                    <div class="flex justify-between items-center border-b border-slate-800 pb-2">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800 pb-3">
                         <h2 class="text-sm font-bold text-sky-400 flex items-center gap-2">
                             <i class="fa-solid fa-desktop"></i> التقاط الشاشة الحية (Live OS Screenshot)
                         </h2>
-                        <button onclick="fetchScreenshot()" class="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 px-3 py-1 rounded-xl text-xs font-bold transition">
-                            <i class="fa-solid fa-arrows-rotate"></i> تحديث اللقطة
-                        </button>
+                        <div class="flex items-center gap-2">
+                            <a id="openGrabTabBtn" href="#" target="_blank" class="hidden bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 px-3 py-1 rounded-xl text-xs font-bold transition">
+                                <i class="fa-solid fa-arrow-up-right-from-square"></i> فتح الصورة بتبويب مستقل
+                            </a>
+                            <button onclick="fetchScreenshot()" class="bg-sky-500/10 hover:bg-sky-500/20 text-sky-400 border border-sky-500/30 px-3 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1.5">
+                                <i class="fa-solid fa-arrows-rotate"></i> تحديث اللقطة
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="relative min-h-[220px] bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden flex items-center justify-center">
-                        <img id="liveGrabImg" src="" alt="شاشة الرسيفر الحية" class="hidden w-full h-auto object-contain rounded-xl">
-                        <div id="grabPlaceholder" class="text-center p-6 space-y-2 text-slate-500">
-                            <i class="fa-solid fa-tv text-4xl"></i>
-                            <p class="text-xs">اضغط على زر "تحديث اللقطة" لجلب الصورة الحية المعروضة على التلفاز حالياً</p>
+                    <div class="relative min-h-[260px] bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden flex items-center justify-center">
+                        <img id="liveGrabImg" src="" alt="شاشة الرسيفر الحية" class="hidden w-full h-auto object-contain rounded-xl max-h-[450px]">
+                        
+                        <div id="grabPlaceholder" class="text-center p-6 space-y-3 text-slate-400">
+                            <i class="fa-solid fa-tv text-4xl text-slate-600 animate-pulse"></i>
+                            <p class="text-xs font-semibold">اضغط على زر "تحديث اللقطة" لجلب الصورة الحية المعروضة على التلفاز حالياً</p>
+                        </div>
+
+                        <div id="grabErrorBox" class="hidden text-center p-6 space-y-3 text-amber-300 bg-slate-950">
+                            <i class="fa-solid fa-triangle-exclamation text-3xl text-amber-400"></i>
+                            <p class="text-xs font-bold">تعذر عرض الصورة داخل هذه النافذة بسبب حظر المتصفح (Mixed Content Block).</p>
+                            <p class="text-[11px] text-slate-400">تأكد من السماح بـ Insecure Content بالمتصفح أو اضغط زر "فتح الصورة بتبويب مستقل" بالفي الأعلى.</p>
                         </div>
                     </div>
                 </div>
@@ -487,7 +512,7 @@
                     </div>
 
                     <div class="mt-3 pt-2 border-t border-slate-800/60 text-[11px] text-slate-500 flex justify-between items-center">
-                        <span><i class="fa-solid fa-shield-halved text-emerald-400"></i> Form Engine v3</span>
+                        <span><i class="fa-solid fa-shield-halved text-emerald-400"></i> Form Engine v3.2</span>
                         <span>Enigma2 OpenWebif</span>
                     </div>
                 </div>
@@ -506,11 +531,9 @@
             update: "opkg update",
             ajpanel: "wget -q \"--no-check-certificate\" https://raw.githubusercontent.com/biko-73/AjPanel/main/installer.sh -O - | script -c /dev/null",
             clearcache: "sync && echo 3 > /proc/sys/vm/drop_caches",
-            restart_gui: "init 4 && init 3",
             e2iplayer: "wget --no-check-certificate https://raw.githubusercontent.com/milenobir/e2iplayer/main/installer.sh -O - | script -c /dev/null",
             subssupport: "opkg install enigma2-plugin-extensions-subssupport",
-            network_fix: "/etc/init.d/networking restart",
-            reboot: "reboot"
+            network_fix: "/etc/init.d/networking restart"
         };
 
         window.onload = function() {
@@ -652,6 +675,36 @@
             }
         }
 
+        // OpenWebif Direct Power API Engine
+        function sendPowerCommand(powerStateCode) {
+            const ipEl = document.getElementById('ipAddress');
+            const portEl = document.getElementById('webPort');
+            const ip = ipEl ? ipEl.value.trim() : '';
+            const port = portEl ? portEl.value.trim() : '80';
+
+            if (!ip) {
+                logToTerminal("خطأ: يرجى إدخال IP الجهاز أولاً!", "error");
+                return;
+            }
+
+            const descriptions = {
+                '0': "تفعيل وضع الاستعداد (Toggle Standby)",
+                '1': "إيقاف التشغيل الكامل (Deep Standby)",
+                '2': "إعادة تشغيل الرسيفر الكاملة (Reboot)",
+                '3': "إعادة تشغيل واجهة المستخدم (Restart GUI)"
+            };
+
+            const desc = descriptions[powerStateCode] || "أمر طاقة";
+            logToTerminal(`إرسال: [${desc}] عبر Power API...`, "info");
+
+            const img = new Image();
+            img.src = `http://${ip}:${port}/web/powerstate?newstate=${powerStateCode}&r=` + Math.random();
+            
+            setTimeout(() => {
+                logToTerminal(`تم تنفيذ أمر: ${desc}`, "success");
+            }, 800);
+        }
+
         function sendWebifCommand(command, description) {
             const ipEl = document.getElementById('ipAddress');
             const portEl = document.getElementById('webPort');
@@ -720,16 +773,29 @@
             logToTerminal("جاري التقاط صورة الشاشة من الرسيفر...", "info");
             const grabImg = document.getElementById('liveGrabImg');
             const placeholder = document.getElementById('grabPlaceholder');
+            const errorBox = document.getElementById('grabErrorBox');
+            const openTabBtn = document.getElementById('openGrabTabBtn');
+
+            const grabUrl = `http://${ip}:${port}/grab?format=jpg&r=` + Math.random();
+
+            if (openTabBtn) {
+                openTabBtn.href = grabUrl;
+                openTabBtn.classList.remove('hidden');
+            }
 
             if (grabImg) {
-                grabImg.src = `http://${ip}:${port}/grab?format=jpg&r=` + Math.random();
+                grabImg.src = grabUrl;
                 grabImg.onload = function() {
                     grabImg.classList.remove('hidden');
                     if (placeholder) placeholder.classList.add('hidden');
+                    if (errorBox) errorBox.classList.add('hidden');
                     logToTerminal("تم تحديث لقطة الشاشة الحية بنجاح!", "success");
                 };
                 grabImg.onerror = function() {
-                    logToTerminal("تعذر جلب صورة الشاشة، تأكد من فتح واجهة Webif لتجاوز الحظر.", "error");
+                    if (grabImg) grabImg.classList.add('hidden');
+                    if (placeholder) placeholder.classList.add('hidden');
+                    if (errorBox) errorBox.classList.remove('hidden');
+                    logToTerminal("تعذر جلب صورة الشاشة، جرب الضغط على 'فتح الصورة بتبويب مستقل'.", "error");
                 };
             }
         }
@@ -742,7 +808,15 @@
                 logToTerminal("اكتب أمر Telnet أولاً!", "error");
                 return;
             }
-            sendWebifCommand(cmd, `أمر مخصص: ${cmd}`);
+
+            if (cmd.toLowerCase() === 'reboot') {
+                sendPowerCommand('2');
+            } else if (cmd.toLowerCase().includes('init 4') || cmd.toLowerCase().includes('init 3')) {
+                sendPowerCommand('3');
+            } else {
+                sendWebifCommand(cmd, `أمر مخصص: ${cmd}`);
+            }
+            
             if (cmdEl) cmdEl.value = '';
         }
 
