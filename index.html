@@ -258,6 +258,49 @@ footer{padding:22px 0 16px;margin-top:12px}
 }
 @media(max-width:360px){.site-header .brand-word{font-size:1.08rem}.site-header .brand-mark{width:34px;height:34px;flex-basis:34px}.header-contact{padding:7px 9px}}
 
+
+/* Mobile-first overflow and performance fixes */
+html,body{width:100%;max-width:100%;overflow-x:clip}
+body{background-color:#050b1a}
+.site-header,.site-header>.wrap,.header-main,.hero-grid,.gallery-layout,.product-grid{min-width:0;max-width:100%}
+.picker{display:flex;flex-wrap:wrap;justify-content:center;overflow:visible;min-width:0;max-width:100%;gap:7px}
+.chip{flex:1 1 145px;min-width:0;max-width:220px;white-space:normal}
+.site-header .picker{border-top:1px solid rgba(145,190,255,.08)}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fit,minmax(94px,1fr));gap:9px;overflow:visible;max-width:100%;padding:10px 0 2px}
+.thumbs button{min-width:0;width:100%;flex:auto;border:1px solid rgba(145,190,255,.18);border-radius:12px;background:rgba(255,255,255,.035);padding:6px;display:flex;flex-direction:column;gap:5px;align-items:center}
+.thumbs button[aria-current=true]{border-color:#42d8f6;background:rgba(47,123,255,.12)}
+.thumbs img{width:100%;height:68px;object-fit:contain;border-radius:7px}
+.thumbs span{font-size:.72rem;color:#c9d9f4;text-align:center;line-height:1.35}
+.gallery-layout{max-width:860px;margin:0 auto}
+.gal-main{padding:10px;overflow:hidden}
+.gal-main img{width:100%;height:clamp(220px,48vw,440px);object-fit:contain;background:#071226;border-radius:12px}
+.gallery-info{display:flex;justify-content:space-between;gap:12px;align-items:center;color:#dceaff;font-size:.9rem;padding:9px 3px 0}
+.gallery-info span{color:#8ea9ce;font-variant-numeric:tabular-nums}
+.product-card,.glass{min-width:0}
+.product-card .photo img,.hero-img img{max-width:100%}
+img{height:auto}
+@media(max-width:700px){
+ .site-header{position:relative}
+ .site-header .picker{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:7px 0}
+ .site-header .chip{max-width:none;width:100%;padding:6px 8px;font-size:.78rem}
+ .site-header .chip small{font-size:.68rem}
+ .mobile-nav{gap:clamp(12px,6vw,28px)}
+ .hero-grid{grid-template-columns:minmax(0,1fr)}
+ .hero-img img{width:100%;max-height:240px}
+ .product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .product-card{min-width:0}
+ .thumbs{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .thumbs img{height:64px}
+ .gallery-info{font-size:.82rem}
+}
+@media(max-width:360px){
+ .site-header .brand-lockup small{letter-spacing:.4px}
+ .site-header .header-contact span{display:none}
+ .site-header .picker{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .thumbs{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
 </style>
 </head>
 <body>
@@ -440,7 +483,11 @@ const CONFIG = {
       id: "zero-4k", name: "Vu+ Zero 4K", category: "Vu+ الكورية",
       price: 12000, originalPrice: null,
       subtitle: "أداء 4K عملي في حجم صغير", description: "رسيفر Enigma2 بدقة 4K، مناسب للي عايز جهاز صغير ومرن مع دعم فني متخصص.",
-      images: [{src:"https://static.wixstatic.com/media/46aad9_795a5d4f884e4fd5bec13297b056f2c5~mv2.png/v1/fit/w_1170%2Ch_410%2Cq_90%2Cenc_avif%2Cquality_auto/46aad9_795a5d4f884e4fd5bec13297b056f2c5~mv2.png",alt:"صورة Vu+ Zero 4K من موقع Vu+"}], features: [], benefits: [], included: [],
+      images: [
+        {src:"https://static.wixstatic.com/media/46aad9_795a5d4f884e4fd5bec13297b056f2c5~mv2.png/v1/fit/w_1170%2Ch_410%2Cq_90%2Cenc_avif%2Cquality_auto/46aad9_795a5d4f884e4fd5bec13297b056f2c5~mv2.png",alt:"Vu+ Zero 4K - صورة الجهاز",label:"الجهاز"},
+        {src:"https://static.wixstatic.com/media/46aad9_2f9e7672beca458491de0c80430b08c3~mv2.png/v1/fill/w_589%2Ch_177%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/VU%20FB%20IR%2001.png",alt:"ريموت تحكم Vu+ الرسمي",label:"الريموت"},
+        {src:"https://static.wixstatic.com/media/46aad9_795a5d4f884e4fd5bec13297b056f2c5~mv2.png/v1/fit/w_1170%2Ch_410%2Cq_90%2Cenc_avif%2Cquality_auto/46aad9_795a5d4f884e4fd5bec13297b056f2c5~mv2.png",alt:"Vu+ Zero 4K - منظور إضافي للجهاز",label:"زاوية إضافية"}
+      ], features: [], benefits: [], included: [],
       why: { points: [] },
       warranty: "", specsText: "", compatibilityText: "", faq: []
     },
@@ -448,7 +495,11 @@ const CONFIG = {
       id: "uno-se-4k", name: "Vu+ Uno 4K SE", category: "Vu+ الكورية",
       price: 29000, originalPrice: null,
       subtitle: "قوة ومرونة لعشاق Enigma2", description: "جهاز 4K بمداخل وخصائص متقدمة، مع إمكانية تركيب وحدة تخزين داخلية.",
-      images: [{src:"https://static.wixstatic.com/media/46aad9_14175a68528544cea56418a93513e252~mv2.png/v1/fit/w_1170%2Ch_400%2Cq_90%2Cenc_avif%2Cquality_auto/46aad9_14175a68528544cea56418a93513e252~mv2.png",alt:"صورة Vu+ Uno 4K SE من موقع Vu+"}], features: [], benefits: [], included: [],
+      images: [
+        {src:"https://applianceeg.com/wp-content/uploads/2026/08/71ELLuM29pL._AC_SL1500_-114x114.jpg",alt:"Vu+ Uno 4K SE مع الريموت",label:"الجهاز والريموت"},
+        {src:"https://applianceeg.com/wp-content/uploads/2026/08/81fEes1vyrL._AC_SL1500_-114x114.jpg",alt:"اللوحة الخلفية ومنافذ Vu+ Uno 4K SE",label:"المداخل الخلفية"},
+        {src:"https://static.wixstatic.com/media/46aad9_2f9e7672beca458491de0c80430b08c3~mv2.png/v1/fill/w_589%2Ch_177%2Cal_c%2Cq_85%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/VU%20FB%20IR%2001.png",alt:"ريموت تحكم Vu+ الرسمي",label:"الريموت"}
+      ], features: [], benefits: [], included: [],
       why: { points: [] },
       warranty: "", specsText: "", compatibilityText: "", faq: []
     },
@@ -456,7 +507,10 @@ const CONFIG = {
       id: "dreambox-1", name: "Dreambox ONE UHD", category: "Dreambox الألمانية",
       price: 21000, originalPrice: null,
       subtitle: "قوة معالجة وتجربة 4K متقدمة", description: "رسيفر DreamOS قوي بتصميم مدمج ودعم لمزايا Enigma2.",
-      images: [{src:"https://dreambox.de/de/wp-content/uploads/2019/06/dreambox-one-ultrahd-003-150x150.jpg",alt:"صورة Dreambox ONE UHD من موقع Dreambox الرسمي"}], features: [], benefits: [], included: [],
+      images: [
+        {src:"https://dreambox.de/de/wp-content/uploads/2019/06/dreambox-one-ultrahd-003-150x150.jpg",alt:"Dreambox ONE UHD - صورة الجهاز",label:"الجهاز"},
+        {src:"https://dmm-tv.com/dreambox/DM525HD/Photos/525.jpg",alt:"صورة أمامية لرسيفر Dreambox من نفس عائلة التصميم",label:"صورة توضيحية للواجهة"}
+      ], features: [], benefits: [], included: [],
       why: { points: [] },
       warranty: "", specsText: "", compatibilityText: "", faq: []
     },
@@ -464,7 +518,11 @@ const CONFIG = {
       id: "dreambox-525", name: "Dreambox DM525 FHD", category: "Dreambox الألمانية",
       price: 7000, originalPrice: null,
       subtitle: "اختيار عملي لمشاهدة Full HD", description: "رسيفر Dreambox مدمج بدقة Full HD لعشاق أجهزة Enigma2.",
-      images: [{src:"https://www.satking.de/media/96/79/58/1726645465/DM525HD_front2_0001.jpg?ts=1756716627",alt:"صورة Dreambox DM525 من موقع Dreambox الرسمي"}], features: [], benefits: [], included: [],
+      images: [
+        {src:"https://dmm-tv.com/dreambox/DM525HD/Photos/525.jpg",alt:"Dreambox DM525 HD - الواجهة الأمامية",label:"الواجهة الأمامية"},
+        {src:"https://dmm-tv.com/dreambox/DM525HD/Photos/dm525c.jpg",alt:"Dreambox DM525 HD - اللوحة الخلفية والمداخل",label:"اللوحة الخلفية"},
+        {src:"https://dmm-tv.com/dreambox/RCU10/RCU10.png",alt:"ريموت Dreambox RC10",label:"الريموت"}
+      ], features: [], benefits: [], included: [],
       why: { points: [] },
       warranty: "", specsText: "", compatibilityText: "", faq: []
     }
@@ -581,14 +639,19 @@ function renderFeatures() {
 function renderGallery() {
   const im = imgsOf(cur); gIdx = 0;
   if (!im.length) { setSec("gallery", CONFIG.showPlaceholders ? `<div class="wrap"><h2>صور المنتج</h2><p class="sub">${ph("ضيف صور حقيقية في images")}</p></div>` : ""); return; }
-  setSec("gallery", `<div class="wrap"><h2>صور ${esc(cur.name)}</h2><p class="sub">اضغط على الصورة للتكبير</p>
-    <div class="glass gal-main" id="galMain"><img id="galImg" src="${esc(im[0].src)}" alt="${esc(im[0].alt || cur.name)}" loading="lazy"></div>
-    ${im.length > 1 ? `<div class="thumbs">${im.map((x, i) => `<button type="button" data-i="${i}" aria-current="${i === 0}" aria-label="صورة ${i + 1}"><img src="${esc(x.src)}" alt="" loading="lazy"></button>`).join("")}</div>` : ""}</div>`);
+  setSec("gallery", `<div class="wrap"><h2>صور وتفاصيل ${esc(cur.name)}</h2><p class="sub">صور متعددة للجهاز والريموت والمداخل — اضغط على أي صورة للتكبير</p>
+    <div class="gallery-layout">
+      <div class="glass gal-main" id="galMain"><img id="galImg" src="${esc(im[0].src)}" alt="${esc(im[0].alt || cur.name)}" loading="lazy"></div>
+      <div class="gallery-info"><strong id="galLabel">${esc(im[0].label || "صورة الجهاز")}</strong><span id="galCount">1 / ${im.length}</span></div>
+      ${im.length > 1 ? `<div class="thumbs">${im.map((x, i) => `<button type="button" data-i="${i}" aria-current="${i === 0}" aria-label="${esc(x.label || ("صورة " + (i + 1)))}"><img src="${esc(x.src)}" alt="" loading="lazy"><span>${esc(x.label || ("صورة " + (i + 1)))}</span></button>`).join("")}</div>` : ""}
+    </div></div>`);
 }
 function setG(i) {
   const im = imgsOf(cur); if (!im.length) return;
   gIdx = (i + im.length) % im.length;
   const g = $("#galImg"); g.src = im[gIdx].src; g.alt = im[gIdx].alt || cur.name;
+  $("#galLabel").textContent = im[gIdx].label || ("صورة " + (gIdx + 1));
+  $("#galCount").textContent = (gIdx + 1) + " / " + im.length;
   document.querySelectorAll(".thumbs button").forEach((b, k) => b.setAttribute("aria-current", k === gIdx));
 }
 
