@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Online4Tech | رسيفرات Vu+ و Dreambox</title>
-<meta name="description" content="Online4Tech - رسيفرات Vu+ الألماني و Dreambox مع دعم فني متخصص. اختار جهازك واطلب دلوقتي.">
+<meta name="description" content="Online4Tech — أجهزة Vu+ الكورية وDreambox الألمانية، صور ومعلومات واضحة وطلب مباشر عبر واتساب.">
 <meta name="theme-color" content="#050b1a">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Online4Tech | رسيفرات Vu+ و Dreambox">
@@ -131,6 +131,43 @@ footer{padding:30px 0 20px;text-align:center;color:var(--muted);font-size:.9rem;
  section{padding:56px 0}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* Premium glass identity */
+body{background:radial-gradient(900px 520px at 50% -12%,rgba(63,135,255,.34),transparent 70%),radial-gradient(700px 460px at 100% 34%,rgba(34,211,238,.13),transparent 70%),linear-gradient(145deg,#040916 0%,#07152d 48%,#050b1a 100%)}
+.glass{background:linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.025));border:1px solid rgba(180,215,255,.24);box-shadow:inset 0 1px 0 rgba(255,255,255,.13),0 18px 48px rgba(0,0,0,.2);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.brandrow-premium{justify-content:center;margin:10px 0 22px}
+.brand-lockup{display:flex;align-items:center;flex-direction:column;gap:2px;text-decoration:none;color:#fff;padding:16px 30px 13px;border:1px solid rgba(155,205,255,.28);border-radius:24px;background:linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.025));box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 16px 50px rgba(24,91,190,.2);backdrop-filter:blur(18px)}
+.brand-mark{width:52px;height:52px;border-radius:17px;display:grid;place-items:center;color:#68e5ff;background:linear-gradient(145deg,rgba(34,211,238,.22),rgba(47,123,255,.12));border:1px solid rgba(103,225,255,.35);box-shadow:0 0 28px rgba(34,211,238,.18)}
+.brand-mark svg{width:38px;height:38px}
+.brand-word{font-family:'Cairo',sans-serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:900;letter-spacing:.2px;line-height:1.25;text-shadow:0 4px 22px rgba(55,150,255,.25)}
+.brand-word span{color:#62e5ff}
+.brand-lockup small{font:700 .62rem/1.4 Arial,sans-serif;letter-spacing:2.4px;color:#9eb9df}
+header.top{padding-top:12px}
+.hero{padding-top:22px}
+.hero-img{border-radius:26px;padding:14px}
+.hero-img img{border-radius:18px;background:radial-gradient(circle,rgba(40,93,165,.25),#061126 72%);min-height:260px}
+.hero-grid>div:last-child{padding:8px 4px}
+.hero h1{letter-spacing:-.6px}
+.catalogue{padding-top:30px}
+.catalogue-head{text-align:center;margin-bottom:24px}
+.catalogue-head .tag{margin-bottom:10px}
+.product-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.product-card{position:relative;overflow:hidden;padding:12px;border-radius:22px;cursor:pointer;transition:transform .22s,border-color .22s,box-shadow .22s;background:linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.025));border:1px solid rgba(165,207,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 16px 38px rgba(0,0,0,.18);backdrop-filter:blur(16px)}
+.product-card:hover{transform:translateY(-5px);border-color:rgba(85,205,255,.65);box-shadow:0 18px 44px rgba(17,102,205,.2)}
+.product-card[aria-current=true]{border-color:#42d8f6;box-shadow:0 0 0 1px rgba(66,216,246,.25),0 18px 42px rgba(17,102,205,.2)}
+.product-card .photo{display:grid;place-items:center;aspect-ratio:1.28/1;border-radius:15px;overflow:hidden;background:linear-gradient(145deg,#10264b,#071226);margin-bottom:12px}
+.product-card img{width:100%;height:100%;object-fit:contain;padding:8px;filter:drop-shadow(0 12px 12px rgba(0,0,0,.35))}
+.product-card h3{font-size:1rem;line-height:1.4;font-weight:900;color:#f4f8ff;margin:2px 0 5px}
+.product-card .category{font-size:.78rem;color:#81dff4;font-weight:700}
+.product-card .card-bottom{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:10px}
+.product-card .card-price{font-size:.98rem;font-weight:900;color:#fff}
+.product-card .choose{font-size:.75rem;color:#b8d6ff;border:1px solid rgba(143,192,255,.28);border-radius:10px;padding:4px 8px}
+.contact-float{position:fixed;z-index:60;bottom:88px;inset-inline-end:16px;display:flex;align-items:center;gap:9px;padding:11px 16px;border-radius:999px;text-decoration:none;color:white;font-weight:900;background:linear-gradient(135deg,#1dbf69,#0d934c);box-shadow:0 10px 30px rgba(12,170,91,.34);border:1px solid rgba(255,255,255,.24)}
+.contact-float svg{width:22px;height:22px;fill:currentColor}
+footer{border-top-color:rgba(145,190,255,.18)}
+@media(min-width:700px){.product-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.product-card{padding:15px}.product-card .photo{aspect-ratio:1.15/1}.product-card h3{font-size:1.08rem}}
+@media(max-width:420px){.product-grid{gap:10px}.product-card{padding:9px;border-radius:17px}.product-card .photo{aspect-ratio:1.05/1}.product-card h3{font-size:.9rem}.product-card .card-price{font-size:.88rem}.contact-float{bottom:84px;padding:10px 13px}}
+
 </style>
 </head>
 <body>
@@ -139,8 +176,8 @@ footer{padding:30px 0 20px;text-align:center;color:var(--muted);font-size:.9rem;
 
 <header class="top">
   <div class="wrap">
-    <div class="brandrow">
-      <div class="logo">Online<b>4</b>Tech</div>
+    <div class="brandrow brandrow-premium">
+      <a class="brand-lockup" href="#hero" aria-label="Online4Tech الرئيسية"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 64 64"><path d="M12 43c10-10 30-10 40 0M18 33c7-7 21-7 28 0M25 23c4-4 10-4 14 0" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"/><circle cx="32" cy="49" r="4" fill="currentColor"/><path d="M12 14h40v5H12z" rx="2" fill="currentColor" opacity=".75"/></svg></span><span class="brand-word">Online<span>4</span>Tech</span><small>SMART RECEIVERS • SMART CHOICE</small></a>
     </div>
     <div class="picker" id="pickTop" aria-label="اختار الجهاز"></div>
   </div>
@@ -148,6 +185,7 @@ footer{padding:30px 0 20px;text-align:center;color:var(--muted);font-size:.9rem;
 
 <main>
   <section class="hero" id="hero"><div class="wrap" id="heroBox"></div></section>
+  <section id="catalogue" class="catalogue"><div class="wrap"><div class="catalogue-head"><span class="tag">اختار جهازك</span><h2>أجهزة مختارة بعناية</h2><p class="sub">شوف صور الأجهزة الحقيقية واختار الموديل المناسب لاستخدامك</p></div><div class="product-grid" id="productGrid"></div></div></section>
   <section id="problem" hidden></section>
   <section id="features" hidden></section>
   <section id="gallery" hidden></section>
@@ -213,10 +251,11 @@ footer{padding:30px 0 20px;text-align:center;color:var(--muted);font-size:.9rem;
   <section id="faq" hidden></section>
 </main>
 
+<a class="contact-float" href="https://wa.me/201092978131" target="_blank" rel="noopener" aria-label="تواصل معنا على واتساب"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0C5.6 0 .3 5.3.3 11.8c0 2.1.6 4.1 1.6 5.9L0 24l6.5-1.7a11.8 11.8 0 0 0 5.6 1.4h.1c6.5 0 11.8-5.3 11.8-11.8 0-3.2-1.2-6.1-3.5-8.4ZM12.1 21.7c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.8 1 1-3.7-.2-.4a9.8 9.8 0 1 1 8.4 4.7Zm5.4-7.3c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.1-.7.2-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.7l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.6-.9-2.1-.2-.5-.5-.4-.7-.4h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.5s1.1 2.8 1.3 3c.2.2 2.2 3.4 5.4 4.7.8.3 1.4.5 1.9.6.8.2 1.5.2 2 .1.6-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.5-.3Z"/></svg>واتساب مباشر</a>
 <footer>
   <div class="wrap">
     <p><b>Online4Tech</b> — <span id="slogan"></span></p>
-    <p style="margin-top:6px"><a href="https://online4tech.github.io/online4Tech/" rel="noopener">موقع Online4Tech</a></p>
+    <p style="margin-top:6px"><a href="https://wa.me/201092978131" target="_blank" rel="noopener">واتساب: 201092978131</a></p><p style="margin-top:6px"><a href="https://online4tech.github.io/online4Tech/" rel="noopener">موقع Online4Tech</a></p>
     <p style="margin-top:6px">© <span id="yr"></span> Online4Tech</p>
   </div>
 </footer>
@@ -250,10 +289,10 @@ const CONFIG = {
     name: "Online4Tech",
     slogan: "مش هدفنا نبيعلك جهاز وخلاص… هدفنا تشتري الصح من أول مرة!",
     // 📱 رقم الواتساب بصيغة دولية من غير + ولا أصفار. مثال: 201012345678
-    whatsapp: "",
+    whatsapp: "201092978131",
     // نقاط عن المحل (مكتوبة من وصف نشاطكم)
     strengths: [
-      "متخصصين في رسيفرات Vu+ الألماني و Dreambox",
+      "متخصصين في أجهزة Vu+ الكورية وDreambox الألمانية",
       "سوفتوير وخدمات Enigma2",
       "برمجة الرسيفرات وتركيب البلجنز والسكنز والأدوات",
       "دعم فني متخصص"
@@ -300,34 +339,34 @@ const CONFIG = {
   // features: [{ icon:"📺", title:"", text:"" }]
   products: [
     {
-      id: "zero-4k", name: "Vu+ Zero 4K", category: "رسيفر Vu+ الألماني",
+      id: "zero-4k", name: "Vu+ Zero 4K", category: "Vu+ الكورية",
       price: 12000, originalPrice: null,
-      subtitle: "", description: "",
-      images: [], features: [], benefits: [], included: [],
+      subtitle: "أداء 4K عملي في حجم صغير", description: "رسيفر Enigma2 بدقة 4K، مناسب للي عايز جهاز صغير ومرن مع دعم فني متخصص.",
+      images: [{src:"https://static.wixstatic.com/media/46aad9_795a5d4f884e4fd5bec13297b056f2c5~mv2.png/v1/fit/w_1170%2Ch_410%2Cq_90%2Cenc_avif%2Cquality_auto/46aad9_795a5d4f884e4fd5bec13297b056f2c5~mv2.png",alt:"صورة Vu+ Zero 4K من موقع Vu+"}], features: [], benefits: [], included: [],
       why: { points: [] },
       warranty: "", specsText: "", compatibilityText: "", faq: []
     },
     {
-      id: "uno-se-4k", name: "Vu+ Uno SE 4K", category: "رسيفر Vu+ الألماني",
+      id: "uno-se-4k", name: "Vu+ Uno 4K SE", category: "Vu+ الكورية",
       price: 29000, originalPrice: null,
-      subtitle: "", description: "",
-      images: [], features: [], benefits: [], included: [],
+      subtitle: "قوة ومرونة لعشاق Enigma2", description: "جهاز 4K بمداخل وخصائص متقدمة، مع إمكانية تركيب وحدة تخزين داخلية.",
+      images: [{src:"https://static.wixstatic.com/media/46aad9_14175a68528544cea56418a93513e252~mv2.png/v1/fit/w_1170%2Ch_400%2Cq_90%2Cenc_avif%2Cquality_auto/46aad9_14175a68528544cea56418a93513e252~mv2.png",alt:"صورة Vu+ Uno 4K SE من موقع Vu+"}], features: [], benefits: [], included: [],
       why: { points: [] },
       warranty: "", specsText: "", compatibilityText: "", faq: []
     },
     {
-      id: "dreambox-1", name: "دريم بوكس 1", category: "رسيفر Dreambox",
+      id: "dreambox-1", name: "Dreambox ONE UHD", category: "Dreambox الألمانية",
       price: 21000, originalPrice: null,
-      subtitle: "", description: "",
-      images: [], features: [], benefits: [], included: [],
+      subtitle: "قوة معالجة وتجربة 4K متقدمة", description: "رسيفر DreamOS قوي بتصميم مدمج ودعم لمزايا Enigma2.",
+      images: [{src:"https://dreambox.de/de/wp-content/uploads/2019/06/dreambox-one-ultrahd-003-150x150.jpg",alt:"صورة Dreambox ONE UHD من موقع Dreambox الرسمي"}], features: [], benefits: [], included: [],
       why: { points: [] },
       warranty: "", specsText: "", compatibilityText: "", faq: []
     },
     {
-      id: "dreambox-525", name: "دريم بوكس 525 FHD", category: "رسيفر Dreambox",
+      id: "dreambox-525", name: "Dreambox DM525 FHD", category: "Dreambox الألمانية",
       price: 7000, originalPrice: null,
-      subtitle: "", description: "",
-      images: [], features: [], benefits: [], included: [],
+      subtitle: "اختيار عملي لمشاهدة Full HD", description: "رسيفر Dreambox مدمج بدقة Full HD لعشاق أجهزة Enigma2.",
+      images: [{src:"https://dreambox.de/de/wp-content/uploads/2017/01/dreambox_dm525_03-1-150x150.jpg",alt:"صورة Dreambox DM525 من موقع Dreambox الرسمي"}], features: [], benefits: [], included: [],
       why: { points: [] },
       warranty: "", specsText: "", compatibilityText: "", faq: []
     }
@@ -367,6 +406,21 @@ const imgsOf = p => (p.images || []).filter(i => i && i.src);
 
 /* ---------- Render ---------- */
 function setSec(id, html) { const el = $("#" + id); el.innerHTML = html || ""; el.hidden = !html || !html.trim(); }
+
+function renderCatalogue() {
+  const grid = $("#productGrid");
+  if (!grid) return;
+  grid.innerHTML = CONFIG.products.map(p => {
+    const images = imgsOf(p);
+    const image = images[0] ? images[0].src : cardSVG(p);
+    const alt = images[0] ? (images[0].alt || p.name) : p.name;
+    return `<button type="button" class="product-card" data-id="${esc(p.id)}" aria-current="${p.id === cur.id}">
+      <span class="photo"><img src="${esc(image)}" alt="${esc(alt)}" loading="lazy" onerror="this.onerror=null;this.src='${esc(cardSVG(p))}'"></span>
+      <span class="category">${esc(p.category)}</span><h3>${esc(p.name)}</h3>
+      <span class="card-bottom"><span class="card-price">${fmt(priceOf(p))}</span><span class="choose">عرض الجهاز ←</span></span>
+    </button>`;
+  }).join("");
+}
 
 function renderPicker() {
   const h = CONFIG.products.map(p =>
@@ -537,7 +591,7 @@ function renderOrderNote() {
 
 /* ---------- Render all ---------- */
 function render() {
-  renderPicker(); renderHero(); renderProblem(); renderFeatures(); renderGallery();
+  renderPicker(); renderCatalogue(); renderHero(); renderProblem(); renderFeatures(); renderGallery();
   renderWhy(); renderReviews(); renderTrust(); renderOffer(); renderFAQ();
   updateSummary();
   $("#stName").textContent = cur.name; $("#stPrice").textContent = fmt(priceOf(cur));
@@ -563,6 +617,7 @@ function stepLB(d) { lbIdx = (lbIdx + d + lbList.length) % lbList.length; showLB
 
 /* ---------- Events ---------- */
 document.addEventListener("click", e => {
+  const productCard = e.target.closest(".product-card"); if (productCard) { selectProduct(productCard.dataset.id, true); document.querySelector("#hero").scrollIntoView({behavior:"smooth",block:"start"}); return; }
   const chip = e.target.closest(".chip"); if (chip) { selectProduct(chip.dataset.id, true); return; }
   const th = e.target.closest(".thumbs button"); if (th) { setG(+th.dataset.i); return; }
   if (e.target.closest("#galMain")) { const im = imgsOf(cur); openLB(im, gIdx); return; }
