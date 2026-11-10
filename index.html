@@ -1,546 +1,699 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة التحكم المحترفة لرسيفرات Enigma2 Ultra Pro</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Cairo Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        darkBg: '#080c14',
-                        cardBg: '#0f172a',
-                        cardBorder: '#1e293b',
-                        accentSky: '#0284c7',
-                        terminalBg: '#020617'
-                    },
-                    fontFamily: {
-                        cairo: ['Cairo', 'sans-serif']
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-            background-color: #080c14;
-            color: #f8fafc;
-        }
-        .glass-card {
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .neon-glow-blue {
-            box-shadow: 0 0 25px rgba(2, 132, 199, 0.15);
-        }
-        .neon-glow-emerald {
-            box-shadow: 0 0 25px rgba(16, 185, 129, 0.15);
-        }
-        .terminal-scroll::-webkit-scrollbar {
-            width: 6px;
-        }
-        .terminal-scroll::-webkit-scrollbar-track {
-            background: #020617;
-        }
-        .terminal-scroll::-webkit-scrollbar-thumb {
-            background: #334155;
-            border-radius: 4px;
-        }
-        .btn-hover-effect {
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .btn-hover-effect:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
-        }
-        .tab-active {
-            background: rgba(2, 132, 199, 0.2);
-            border-color: #38bdf8;
-            color: #38bdf8;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Online4Tech | رسيفرات Vu+ و Dreambox</title>
+<meta name="description" content="Online4Tech - رسيفرات Vu+ الألماني و Dreambox مع دعم فني متخصص. اختار جهازك واطلب دلوقتي.">
+<meta name="theme-color" content="#050b1a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Online4Tech | رسيفرات Vu+ و Dreambox">
+<meta property="og:description" content="مش هدفنا نبيعلك جهاز وخلاص… هدفنا تشتري الصح من أول مرة!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050b1a;--card:rgba(255,255,255,.05);--line:rgba(120,170,255,.2);--blue:#2f7bff;--cyan:#22d3ee;--text:#eaf1ff;--muted:#9fb0cf;--ok:#22c55e;--err:#ff6b6b;--warn:#f59e0b;--r:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Cairo','Tajawal',system-ui,sans-serif;background:radial-gradient(1100px 600px at 85% -10%,rgba(47,123,255,.22),transparent),radial-gradient(900px 500px at 0% 40%,rgba(34,211,238,.08),transparent),var(--bg);color:var(--text);line-height:1.75;padding-bottom:90px;-webkit-text-size-adjust:100%}
+img{max-width:100%;display:block}
+button,input,textarea{font-family:inherit;font-size:1rem;color:inherit}
+a{color:var(--cyan)}
+[hidden]{display:none!important}
+.wrap{max-width:1100px;margin:auto;padding:0 16px}
+section{padding:40px 0}
+h1{font-size:clamp(1.7rem,5vw,2.8rem);font-weight:900;line-height:1.3}
+h2{font-size:clamp(1.3rem,3.6vw,1.9rem);font-weight:800;margin-bottom:8px;text-align:center}
+.sub{color:var(--muted);text-align:center;margin-bottom:24px}
+.glass{background:var(--card);border:1px solid var(--line);border-radius:var(--r);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;cursor:pointer;font-weight:800;border-radius:14px;padding:14px 26px;text-decoration:none;transition:transform .15s,box-shadow .2s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:linear-gradient(135deg,var(--blue),#1b5be0);color:#fff;box-shadow:0 8px 24px rgba(47,123,255,.4)}
+.btn.wa{background:#1fa855;color:#fff}
+.btn.ghost{background:transparent;border:1px solid var(--line)}
+.btn[disabled]{opacity:.6;cursor:wait}
+.btn.block{width:100%}
+header.top{padding:14px 0 6px;position:relative}
+.brandrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.logo{font-weight:900;font-size:1.25rem;letter-spacing:.3px}
+.logo b{color:var(--cyan)}
+.picker{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 8px;scrollbar-width:none}
+.picker::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:8px 14px;cursor:pointer;text-align:center;line-height:1.35;min-width:130px}
+.chip small{display:block;color:var(--muted);font-size:.78rem}
+.chip[aria-pressed=true]{background:rgba(47,123,255,.2);border-color:var(--blue);box-shadow:0 0 0 1px var(--blue) inset}
+.hero{padding-top:18px}
+.hero-grid{display:grid;gap:24px;align-items:center}
+.hero-img{padding:10px;cursor:pointer}
+.hero-img img{border-radius:14px;width:100%;aspect-ratio:4/3;object-fit:contain;background:#07122b}
+.tag{display:inline-block;background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.3);padding:2px 12px;border-radius:99px;font-size:.85rem;font-weight:700;margin-bottom:10px}
+.lead{color:var(--muted);margin:10px 0}
+.price{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:16px 0}
+.price .now{font-size:2rem;font-weight:900;color:#fff}
+.price s{color:var(--muted);font-size:1.15rem}
+.badge{background:var(--err);color:#fff;border-radius:8px;padding:2px 10px;font-weight:800;font-size:.9rem}
+.badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.badges span{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:5px 12px;font-size:.9rem}
+.cols2{display:grid;gap:16px}
+.card{padding:20px}
+.card h3{font-size:1.1rem;margin-bottom:8px}
+.list{list-style:none;display:grid;gap:8px}
+.list li{padding-inline-start:28px;position:relative}
+.list.ok li::before{content:"✓";position:absolute;inset-inline-start:0;color:var(--ok);font-weight:900}
+.list.bad li::before{content:"✕";position:absolute;inset-inline-start:0;color:var(--err);font-weight:900}
+.feats{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.feat .ic{font-size:1.8rem;margin-bottom:6px}
+.gal-main{padding:8px;cursor:zoom-in;touch-action:pan-y}
+.gal-main img{width:100%;aspect-ratio:4/3;object-fit:contain;border-radius:12px;background:#07122b}
+.thumbs{display:flex;gap:8px;margin-top:10px;overflow-x:auto;padding-bottom:4px}
+.thumbs button{flex:0 0 76px;border:2px solid transparent;border-radius:10px;overflow:hidden;background:none;cursor:pointer;padding:0}
+.thumbs button[aria-current=true]{border-color:var(--blue)}
+.thumbs img{width:76px;height:60px;object-fit:cover}
+.reviews{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+.stars{color:#fbbf24;letter-spacing:2px}
+.offer{text-align:center;padding:26px;border-color:rgba(255,107,107,.45);background:linear-gradient(135deg,rgba(255,107,107,.1),rgba(47,123,255,.1))}
+.cd{display:flex;gap:10px;justify-content:center;margin-top:14px;direction:ltr}
+.cd div{background:#07122b;border:1px solid var(--line);border-radius:12px;min-width:66px;padding:8px}
+.cd b{display:block;font-size:1.6rem}
+.cd small{color:var(--muted)}
+.form{padding:22px;max-width:640px;margin:auto}
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:700;margin-bottom:5px}
+.field input[type=text],.field input[type=tel],.field textarea{width:100%;background:#07122b;border:1px solid var(--line);border-radius:12px;padding:12px 14px;outline:none}
+.field input:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(47,123,255,.25)}
+.field textarea{min-height:80px;resize:vertical}
+.field.bad input,.field.bad textarea{border-color:var(--err)}
+.errt{color:var(--err);font-size:.85rem;margin-top:4px;display:none}
+.field.bad .errt{display:block}
+.qty{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.qty button{width:44px;height:44px;border:0;background:var(--card);cursor:pointer;font-size:1.3rem}
+.qty input{width:54px;text-align:center;background:#07122b;border:0;height:44px}
+.pays{display:grid;gap:8px}
+.pays label{display:flex;gap:10px;align-items:center;background:#07122b;border:1px solid var(--line);border-radius:12px;padding:10px 14px;cursor:pointer;font-weight:600}
+.sum{background:rgba(47,123,255,.1);border:1px solid var(--line);border-radius:14px;padding:14px;margin:16px 0}
+.sum div{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
+.sum .tot{border-top:1px dashed var(--line);margin-top:6px;padding-top:8px;font-weight:900;font-size:1.15rem}
+.msg{border-radius:12px;padding:12px 14px;margin:12px 0;font-weight:600}
+.msg.err{background:rgba(255,107,107,.12);border:1px solid var(--err)}
+.msg.ok{background:rgba(34,197,94,.12);border:1px solid var(--ok)}
+.msg.info{background:rgba(47,123,255,.12);border:1px solid var(--blue)}
+.note{color:var(--muted);font-size:.88rem;margin-top:10px;text-align:center}
+.hp{position:absolute;left:-9999px;opacity:0;height:0;width:0}
+.actions{display:grid;gap:10px}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:10px;overflow:hidden}
+summary{cursor:pointer;padding:14px 18px;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--cyan);font-size:1.3rem;line-height:1}
+details[open] summary::after{content:"–"}
+details p{padding:0 18px 16px;color:var(--muted)}
+.sticky{position:fixed;inset-inline:0;bottom:0;z-index:50;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(5,11,26,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--line);transform:translateY(110%);transition:transform .25s}
+.sticky.show{transform:none}
+.sticky .in{max-width:1100px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sticky .nm{font-weight:800;line-height:1.3}
+.sticky .nm small{display:block;color:var(--cyan);font-size:1rem}
+.sticky .btn{padding:12px 22px}
+footer{padding:30px 0 20px;text-align:center;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);margin-top:20px}
+.ph{color:var(--warn);font-weight:700}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(2,6,16,.95);display:none;align-items:center;justify-content:center;touch-action:pan-y}
+.lb.open{display:flex}
+.lb img{max-width:94vw;max-height:84vh;transition:transform .2s;cursor:zoom-in;user-select:none}
+.lb img.zoom{transform:scale(2.2);cursor:zoom-out}
+.lb button{position:absolute;background:rgba(255,255,255,.12);border:0;color:#fff;width:46px;height:46px;border-radius:50%;font-size:1.5rem;cursor:pointer}
+.lb .x{top:16px;inset-inline-start:16px}
+.lb .pv{inset-inline-start:12px;top:50%}
+.lb .nx{inset-inline-end:12px;top:50%}
+.lb .cnt{position:absolute;bottom:18px;color:var(--muted)}
+@media(min-width:860px){
+ .hero-grid{grid-template-columns:1.05fr 1fr}
+ .cols2{grid-template-columns:1fr 1fr}
+ .actions{grid-template-columns:1fr 1fr}
+ section{padding:56px 0}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
-<body class="min-h-screen pb-12 text-slate-100">
+<body>
 
-    <!-- Top Navigation Header -->
-    <header class="sticky top-0 z-50 glass-card border-b border-slate-800 px-4 py-3 mb-6 shadow-2xl">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
-            <div class="flex items-center gap-3">
-                <div class="bg-gradient-to-tr from-sky-600 via-indigo-600 to-purple-600 p-2.5 rounded-2xl shadow-lg">
-                    <i class="fa-solid fa-satellite-dish text-2xl text-white"></i>
-                </div>
-                <div>
-                    <h1 class="text-lg sm:text-xl font-black tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-emerald-400">
-                        مركز التحكم الإنيجما Pro Ultra v6.0
-                    </h1>
-                    <p class="text-xs text-slate-400">Enigma2 WebTelnet & Direct Command Generator</p>
-                </div>
-            </div>
+<noscript><p style="padding:20px;text-align:center">الصفحة محتاجة JavaScript عشان تشتغل.</p></noscript>
 
-            <div class="flex items-center gap-3">
-                <div id="connectionStatus" class="flex items-center gap-2 bg-slate-950 border border-slate-800 px-3 py-1.5 rounded-full text-xs font-bold text-slate-400">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.8)]" id="statusDot"></span>
-                    <span id="statusText" class="text-emerald-400">جاهز ومفعل</span>
-                </div>
-                <button onclick="openDirectWebif()" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-4 py-2 rounded-xl text-xs font-bold transition btn-hover-effect flex items-center gap-2">
-                    <i class="fa-solid fa-arrow-up-right-from-square"></i> فتح OpenWebif المباشر
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Container -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-
-        <!-- Solution Banner for Mixed Content -->
-        <div class="bg-slate-900/90 border-2 border-sky-500/40 rounded-2xl p-4 text-xs text-slate-200 shadow-2xl">
-            <div class="flex items-start gap-3">
-                <i class="fa-solid fa-circle-info text-2xl text-sky-400 mt-0.5"></i>
-                <div class="space-y-1.5 flex-grow">
-                    <p class="font-bold text-sm text-sky-300">💡 طرق التشغيل وتجاوز قيود حظر المتصفحات:</p>
-                    <p class="text-slate-300 leading-relaxed">
-                        عند الضغط على أي أمر، تقوم اللوحة بإرساله فوراً إلى OpenWebif بالرسيفر، بالإضافة إلى إظهار <strong>كود Telnet المباشر</strong> بنقرة واحدة لتتمكن من نسخه ولصقه في برنامج (PuTTY / Terminal) إذا كان متصفحك يمنع الاتصال المباشر.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Connection Settings Card -->
-        <div class="glass-card rounded-2xl p-5 shadow-xl border border-slate-800/80 neon-glow-blue">
-            <h2 class="text-sm font-bold text-sky-400 flex items-center gap-2 mb-4 border-b border-slate-800 pb-2">
-                <i class="fa-solid fa-network-wired"></i> إعدادات الاتصال بالرسيفر (Receiver IP)
-            </h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div>
-                    <label class="block text-xs text-slate-400 mb-1.5 font-semibold">IP الرسيفر بالشبكة المحلية:</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-microchip absolute right-3 top-3 text-slate-500 text-xs"></i>
-                        <input type="text" id="ipAddress" placeholder="192.168.1.15" value="192.168.1.15" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-9 pl-3 py-2 text-xs text-emerald-400 focus:outline-none focus:border-sky-500 font-mono transition">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs text-slate-400 mb-1.5 font-semibold">اسم المستخدم (User):</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-user absolute right-3 top-3 text-slate-500 text-xs"></i>
-                        <input type="text" id="e2User" value="root" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-9 pl-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono transition">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs text-slate-400 mb-1.5 font-semibold">بورت OpenWebif:</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-hashtag absolute right-3 top-3 text-slate-500 text-xs"></i>
-                        <input type="text" id="webPort" value="80" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-9 pl-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono transition">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-xs text-slate-400 mb-1.5 font-semibold">كلمة المرور:</label>
-                    <div class="relative">
-                        <i class="fa-solid fa-key absolute right-3 top-3 text-slate-500 text-xs"></i>
-                        <input type="password" id="password" placeholder="root / اتركه فارغ" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-9 pl-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500 font-mono transition">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Feature Tabs Header -->
-        <div class="flex overflow-x-auto gap-2 pb-1 border-b border-slate-800 text-xs font-bold scrollbar-none">
-            <button onclick="switchTab('telnet')" id="tab-telnet" class="px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:text-white transition whitespace-nowrap tab-active">
-                <i class="fa-solid fa-terminal ml-1.5"></i> أوامر Telnet وتثبيت البلجنات
-            </button>
-            <button onclick="switchTab('iptv')" id="tab-iptv" class="px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:text-white transition whitespace-nowrap">
-                <i class="fa-solid fa-tv ml-1.5"></i> IPTV & Bouquets
-            </button>
-            <button onclick="switchTab('cam')" id="tab-cam" class="px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:text-white transition whitespace-nowrap">
-                <i class="fa-solid fa-server ml-1.5"></i> مولد سيرفرات Cam
-            </button>
-            <button onclick="switchTab('remote')" id="tab-remote" class="px-4 py-2.5 rounded-xl border border-slate-800 bg-slate-900/60 text-slate-300 hover:text-white transition whitespace-nowrap">
-                <i class="fa-solid fa-gamepad ml-1.5"></i> الريموت كنترول
-            </button>
-        </div>
-
-        <!-- Main Content Area -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-            <!-- Tab Content Sections (Col 1 & 2) -->
-            <div class="lg:col-span-2 space-y-6">
-
-                <!-- 1. Telnet Panel -->
-                <div id="content-telnet" class="space-y-6">
-                    <div class="glass-card rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl">
-                        <h2 class="text-sm font-bold text-sky-400 flex items-center gap-2 border-b border-slate-800 pb-2">
-                            <i class="fa-solid fa-terminal"></i> تثبيت البلجنات وأوامر Telnet المباشرة
-                        </h2>
-
-                        <!-- Power Controls Quick Section -->
-                        <div class="bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80 space-y-2">
-                            <label class="block text-xs text-sky-300 font-bold flex items-center gap-1.5">
-                                <i class="fa-solid fa-power-off text-rose-400"></i> أوامر التحكم بالطاقة:
-                            </label>
-                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                <button onclick="sendPowerCommand('2')" class="bg-rose-900/30 hover:bg-rose-600/30 border border-rose-500/40 text-rose-300 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
-                                    <i class="fa-solid fa-rotate-right ml-1"></i> Reboot
-                                </button>
-                                <button onclick="sendPowerCommand('3')" class="bg-purple-900/30 hover:bg-purple-600/30 border border-purple-500/40 text-purple-300 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
-                                    <i class="fa-solid fa-arrows-rotate ml-1"></i> Restart GUI
-                                </button>
-                                <button onclick="sendPowerCommand('0')" class="bg-amber-900/30 hover:bg-amber-600/30 border border-amber-500/40 text-amber-300 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
-                                    <i class="fa-solid fa-moon ml-1"></i> Standby
-                                </button>
-                                <button onclick="sendPowerCommand('1')" class="bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 py-2 rounded-xl text-xs font-bold transition btn-hover-effect">
-                                    <i class="fa-solid fa-power-off ml-1"></i> Deep Standby
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Custom Command Input -->
-                        <div class="flex gap-2">
-                            <div class="relative flex-grow">
-                                <span class="absolute right-3 top-2.5 text-xs text-emerald-500 font-mono font-bold">$</span>
-                                <input type="text" id="customCommand" placeholder="اكتب أي أمر Telnet (مثال: opkg update)" class="w-full bg-slate-950 border border-slate-800 rounded-xl pr-7 pl-3 py-2 text-xs text-emerald-400 font-mono focus:outline-none focus:border-sky-500 transition">
-                            </div>
-                            <button onclick="executeCustomCommand()" class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold px-5 py-2 rounded-xl text-xs transition shadow-lg whitespace-nowrap btn-hover-effect flex items-center gap-1.5">
-                                <i class="fa-solid fa-paper-plane"></i> تنفيذ
-                            </button>
-                        </div>
-
-                        <!-- Category Filters for Presets -->
-                        <div class="space-y-3 pt-2">
-                            <label class="block text-xs text-slate-400 font-semibold border-b border-slate-800/80 pb-1">تثبيت أشهر الإضافات والسكربتات بنقرة واحدة:</label>
-                            
-                            <div>
-                                <span class="text-[11px] text-amber-400 font-bold block mb-2"><i class="fa-solid fa-box-open ml-1"></i> البلجنات الأساسية:</span>
-                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                                    <button onclick="runSmartCommand('ajpanel')" class="bg-slate-900/90 hover:bg-slate-800 border border-amber-500/30 rounded-xl p-2.5 text-xs text-amber-300 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-cubes text-amber-400"></i>
-                                        <span class="font-bold">AJPanel</span>
-                                    </button>
-                                    <button onclick="runSmartCommand('e2iplayer')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-play text-red-400"></i>
-                                        <span class="font-bold">E2iPlayer</span>
-                                    </button>
-                                    <button onclick="runSmartCommand('subssupport')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-closed-captioning text-emerald-400"></i>
-                                        <span class="font-bold">SubSSupport</span>
-                                    </button>
-                                    <button onclick="runSmartCommand('multistalker')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-ghost text-purple-400"></i>
-                                        <span class="font-bold">MultiStalker Pro</span>
-                                    </button>
-                                    <button onclick="runSmartCommand('iptosat')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-satellite text-sky-400"></i>
-                                        <span class="font-bold">IPToSAT</span>
-                                    </button>
-                                    <button onclick="runSmartCommand('ipaudio')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-music text-yellow-400"></i>
-                                        <span class="font-bold">IPAudio</span>
-                                    </button>
-                                    <button onclick="runSmartCommand('arabicsaver')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-language text-emerald-400"></i>
-                                        <span class="font-bold">Arabic Saver</span>
-                                    </button>
-                                    <button onclick="runSmartCommand('clearcache')" class="bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 rounded-xl p-2.5 text-xs text-slate-200 flex items-center gap-2 transition btn-hover-effect">
-                                        <i class="fa-solid fa-broom text-teal-400"></i>
-                                        <span class="font-bold">تنظيف ذاكرة RAM</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. IPTV Panel -->
-                <div id="content-iptv" class="hidden glass-card rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl">
-                    <h2 class="text-sm font-bold text-indigo-400 flex items-center gap-2 border-b border-slate-800 pb-2">
-                        <i class="fa-solid fa-tv"></i> تثبيت وإدارة اشتراكات M3U & IPTV
-                    </h2>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1 font-semibold">الهوست مع البورت:</label>
-                            <input type="text" id="iptvHost" placeholder="http://iptv.com:8080" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-indigo-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1 font-semibold">اسم المستخدم:</label>
-                            <input type="text" id="iptvUser" placeholder="username" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-indigo-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1 font-semibold">كلمة السر:</label>
-                            <input type="text" id="iptvPass" placeholder="password" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-indigo-500">
-                        </div>
-                    </div>
-
-                    <button onclick="installIPTVBouquet()" class="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow-lg transition btn-hover-effect flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-download"></i> توليد أمر تثبيت القنوات وملف playlist.txt
-                    </button>
-                </div>
-
-                <!-- 3. Cam Generator Panel -->
-                <div id="content-cam" class="hidden glass-card rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl neon-glow-emerald">
-                    <h2 class="text-sm font-bold text-emerald-400 flex items-center gap-2 border-b border-slate-800 pb-2">
-                        <i class="fa-solid fa-server"></i> مولد ومحول سيرفرات الشيرينج (Cam Config)
-                    </h2>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1 font-semibold">نوع الإيمو:</label>
-                            <select id="camType" onchange="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-emerald-400 font-bold focus:outline-none focus:border-sky-500">
-                                <option value="oscam">OScam (oscam.server)</option>
-                                <option value="ncam">NCam (ncam.server)</option>
-                                <option value="cccam">CCcam (CCcam.cfg)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1 font-semibold">الهوست (Host / IP):</label>
-                            <input type="text" id="camHost" placeholder="cccam.example.com" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1 font-semibold">البورت (Port):</label>
-                            <input type="text" id="camPort" placeholder="12000" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1 font-semibold">المستخدم (User):</label>
-                            <input type="text" id="camUser" placeholder="username" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-slate-400 mb-1 font-semibold">كلمة السر (Password):</label>
-                            <input type="text" id="camPass" placeholder="password" oninput="generateReaderPreview()" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 font-mono">
-                        </div>
-                    </div>
-
-                    <textarea id="readerPreview" readonly rows="4" class="w-full bg-terminalBg border border-slate-800 rounded-xl p-3 text-xs text-emerald-400 font-mono focus:outline-none text-left leading-relaxed"></textarea>
-
-                    <button onclick="sendCamToServer()" class="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs shadow-lg transition btn-hover-effect">
-                        <i class="fa-solid fa-cloud-arrow-up"></i> إرسال السيرفر وتنشيطه بالرسيفر
-                    </button>
-                </div>
-
-                <!-- 4. Remote Control Panel -->
-                <div id="content-remote" class="hidden glass-card rounded-2xl p-5 border border-slate-800 space-y-4 shadow-xl">
-                    <h2 class="text-sm font-bold text-sky-400 flex items-center justify-between border-b border-slate-800 pb-2">
-                        <span><i class="fa-solid fa-gamepad"></i> الريموت كنترول التفاعلي</span>
-                    </h2>
-                    
-                    <div class="max-w-xs mx-auto bg-slate-950 p-5 rounded-3xl border border-slate-800 shadow-2xl space-y-4 text-center">
-                        <div class="flex justify-between items-center">
-                            <button onclick="sendRCKey('116')" class="w-10 h-10 rounded-full bg-rose-600/20 text-rose-500 border border-rose-500/40 hover:bg-rose-600 hover:text-white transition flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-power-off"></i>
-                            </button>
-                            <button onclick="sendRCKey('113')" class="w-10 h-10 rounded-full bg-slate-800 text-slate-300 hover:bg-slate-700 transition flex items-center justify-center font-bold">
-                                <i class="fa-solid fa-volume-xmark"></i>
-                            </button>
-                        </div>
-
-                        <div class="relative w-40 h-40 mx-auto bg-slate-900 rounded-full border border-slate-800 p-2 flex items-center justify-center">
-                            <button onclick="sendRCKey('103')" class="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-10 rounded-t-full bg-slate-800 hover:bg-sky-600 text-slate-200 transition flex items-center justify-center"><i class="fa-solid fa-chevron-up"></i></button>
-                            <button onclick="sendRCKey('108')" class="absolute bottom-2 left-1/2 -translate-x-1/2 w-10 h-10 rounded-b-full bg-slate-800 hover:bg-sky-600 text-slate-200 transition flex items-center justify-center"><i class="fa-solid fa-chevron-down"></i></button>
-                            <button onclick="sendRCKey('105')" class="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-r-full bg-slate-800 hover:bg-sky-600 text-slate-200 transition flex items-center justify-center"><i class="fa-solid fa-chevron-right"></i></button>
-                            <button onclick="sendRCKey('106')" class="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-l-full bg-slate-800 hover:bg-sky-600 text-slate-200 transition flex items-center justify-center"><i class="fa-solid fa-chevron-left"></i></button>
-                            <button onclick="sendRCKey('352')" class="w-12 h-12 rounded-full bg-sky-600 text-white font-bold hover:bg-sky-500 transition flex items-center justify-center shadow-lg">OK</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Column 3: Live Terminal Logger & Command Output (Right) -->
-            <div class="lg:col-span-1">
-                <div class="sticky top-20 glass-card border border-slate-800/80 rounded-2xl p-4 shadow-2xl font-mono flex flex-col h-[520px] neon-glow-blue">
-                    <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-800">
-                        <div class="flex items-center gap-2 text-xs text-slate-300">
-                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                            <span class="font-bold">كود الأمر والنتيجة (Command Log)</span>
-                        </div>
-                        <button onclick="clearTerminal()" class="text-xs text-slate-500 hover:text-rose-400 transition" title="مسح السجل">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </div>
-
-                    <div id="terminalLog" class="flex-grow overflow-y-auto terminal-scroll text-xs space-y-2.5 text-left p-2.5 bg-terminalBg/95 rounded-xl border border-slate-900">
-                        <div class="text-slate-400 font-sans">[النظام]: اختر أو اكتب أي أمر لتنفيذه وحفظ الكود المباشر.</div>
-                    </div>
-                    
-                    <button onclick="copyLastCommand()" class="mt-3 bg-slate-800 hover:bg-slate-700 text-sky-400 text-xs py-2 rounded-xl font-bold transition flex items-center justify-center gap-2 border border-slate-700">
-                        <i class="fa-solid fa-copy"></i> نسخ آخر أمر للـ Terminal
-                    </button>
-                </div>
-            </div>
-
-        </div>
-
+<header class="top">
+  <div class="wrap">
+    <div class="brandrow">
+      <div class="logo">Online<b>4</b>Tech</div>
     </div>
+    <div class="picker" id="pickTop" aria-label="اختار الجهاز"></div>
+  </div>
+</header>
 
-    <script>
-        const SMART_COMMANDS = {
-            update: "opkg update",
-            clearcache: "sync && echo 3 > /proc/sys/vm/drop_caches",
-            ajpanel: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/biko-73/AjPanel/main/installer.sh -O - | script -c /dev/null",
-            e2iplayer: "wget --no-check-certificate https://raw.githubusercontent.com/MOHAMED19OS/Download-E2iPlayer/main/installer.sh -O - | script -c /dev/null",
-            subssupport: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/MOHAMED19OS/SubSSupport/main/installer.sh -O - | script -c /dev/null",
-            multistalker: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/ziko-99/MultiStalker/main/installer.sh -O - | script -c /dev/null",
-            iptosat: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/ziko-99/IPToSAT/main/installer.sh -O - | script -c /dev/null",
-            ipaudio: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/ziko-99/ipaudio/main/installer.sh -O - | script -c /dev/null",
-            arabicsaver: "wget -q '--no-check-certificate' https://raw.githubusercontent.com/biko-73/ArabicSaver/main/installer.sh -O - | script -c /dev/null"
-        };
+<main>
+  <section class="hero" id="hero"><div class="wrap" id="heroBox"></div></section>
+  <section id="problem" hidden></section>
+  <section id="features" hidden></section>
+  <section id="gallery" hidden></section>
+  <section id="why" hidden></section>
+  <section id="reviews" hidden></section>
+  <section id="trust" hidden></section>
+  <section id="offer" hidden></section>
 
-        let lastCmd = "";
+  <section id="orderSec">
+    <div class="wrap">
+      <h2>اطلب دلوقتي</h2>
+      <p class="sub">اختار الجهاز واملا بياناتك وابعت طلبك</p>
+      <div class="picker" id="pickBottom" style="justify-content:center;flex-wrap:wrap;overflow:visible"></div>
 
-        function switchTab(tabId) {
-            ['telnet', 'remote', 'cam', 'iptv'].forEach(t => {
-                const c = document.getElementById(`content-${t}`);
-                const b = document.getElementById(`tab-${t}`);
-                if (c && b) {
-                    c.classList.add('hidden');
-                    b.classList.remove('tab-active');
-                }
-            });
+      <form class="glass form" id="order" novalidate>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <div class="field" id="f-name">
+          <label for="name">الاسم</label>
+          <input type="text" id="name" autocomplete="name" placeholder="اسمك بالكامل">
+          <div class="errt">اكتب اسمك من فضلك</div>
+        </div>
+        <div class="field" id="f-phone">
+          <label for="phone">رقم الموبايل</label>
+          <input type="tel" id="phone" inputmode="tel" autocomplete="tel" placeholder="01xxxxxxxxx" dir="ltr" style="text-align:right">
+          <div class="errt">اكتب رقم موبايل مصري صحيح</div>
+        </div>
+        <div class="field" id="f-address">
+          <label for="address">العنوان</label>
+          <textarea id="address" autocomplete="street-address" placeholder="المحافظة - المنطقة - الشارع - رقم العمارة والشقة"></textarea>
+          <div class="errt">اكتب عنوانك بالتفصيل</div>
+        </div>
+        <div class="field">
+          <label>الكمية</label>
+          <div class="qty">
+            <button type="button" id="qMinus" aria-label="تقليل">−</button>
+            <input type="text" id="qty" value="1" readonly aria-label="الكمية">
+            <button type="button" id="qPlus" aria-label="زيادة">+</button>
+          </div>
+        </div>
+        <div class="field" id="payBox" hidden>
+          <label>طريقة الدفع</label>
+          <div class="pays" id="pays"></div>
+        </div>
+        <div class="field">
+          <label for="notes">ملاحظات (اختياري)</label>
+          <textarea id="notes" placeholder="أي حاجة تحب تقولهالنا"></textarea>
+        </div>
 
-            const activeC = document.getElementById(`content-${tabId}`);
-            const activeB = document.getElementById(`tab-${tabId}`);
-            if (activeC && activeB) {
-                activeC.classList.remove('hidden');
-                activeB.classList.add('tab-active');
-            }
-        }
+        <div class="sum" id="sum" aria-live="polite"></div>
+        <div id="delivNote" class="note" hidden style="margin:0 0 10px"></div>
 
-        function getIp() {
-            return document.getElementById('ipAddress').value.trim() || '192.168.1.15';
-        }
+        <div id="formMsg" role="alert" aria-live="polite"></div>
 
-        function getPort() {
-            return document.getElementById('webPort').value.trim() || '80';
-        }
+        <div class="actions">
+          <button type="button" class="btn wa block" id="waBtn">اطلب عن طريق واتساب</button>
+          <button type="submit" class="btn primary block" id="subBtn" hidden>تأكيد الطلب</button>
+        </div>
+        <p class="note" id="orderNote"></p>
+      </form>
+    </div>
+  </section>
 
-        function openDirectWebif() {
-            window.open(`http://${getIp()}:${getPort()}/`, '_blank');
-        }
+  <section id="faq" hidden></section>
+</main>
 
-        function logToTerminal(msg, type = 'info') {
-            const terminal = document.getElementById('terminalLog');
-            if (!terminal) return;
+<footer>
+  <div class="wrap">
+    <p><b>Online4Tech</b> — <span id="slogan"></span></p>
+    <p style="margin-top:6px"><a href="https://online4tech.github.io/online4Tech/" rel="noopener">موقع Online4Tech</a></p>
+    <p style="margin-top:6px">© <span id="yr"></span> Online4Tech</p>
+  </div>
+</footer>
 
-            const time = new Date().toLocaleTimeString('ar-EG');
-            let colorClass = "text-slate-300";
-            if (type === 'success') colorClass = "text-emerald-400 font-bold";
-            if (type === 'error') colorClass = "text-rose-400 font-bold";
-            if (type === 'cmd') colorClass = "text-sky-300 font-mono select-all bg-slate-900 p-1.5 rounded border border-slate-800 break-all";
+<div class="sticky" id="sticky">
+  <div class="in">
+    <div class="nm"><span id="stName"></span><small id="stPrice"></small></div>
+    <a href="#orderSec" class="btn primary">اطلب دلوقتي</a>
+  </div>
+</div>
 
-            const logEntry = document.createElement('div');
-            logEntry.className = colorClass;
-            if(type === 'cmd') {
-                logEntry.innerHTML = msg;
-            } else {
-                logEntry.innerHTML = `<span class="text-slate-500 font-mono">[${time}]</span> ${msg}`;
-            }
-            
-            terminal.appendChild(logEntry);
-            terminal.scrollTop = terminal.scrollHeight;
-        }
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="معرض الصور">
+  <button class="x" id="lbX" aria-label="إغلاق">✕</button>
+  <button class="pv" id="lbP" aria-label="السابق">›</button>
+  <button class="nx" id="lbN" aria-label="التالي">‹</button>
+  <img id="lbImg" alt="">
+  <div class="cnt" id="lbC"></div>
+</div>
 
-        function clearTerminal() {
-            document.getElementById('terminalLog').innerHTML = '<div class="text-slate-400">[System]: تم مسح السجل.</div>';
-        }
+<script>
+/* =====================================================================
+   ⚙️ الإعدادات — كل اللي محتاج تعدله موجود هنا بس
+   ===================================================================== */
+const CONFIG = {
+  // true = يظهر مكان الحاجات الناقصة بلون برتقالي [ ... ]  |  false = الأقسام الفاضية تتخفي
+  showPlaceholders: false,
 
-        function sendWebifCommand(command, description) {
-            lastCmd = command;
-            const ip = getIp();
-            const port = getPort();
+  currency: "ج.م",
 
-            logToTerminal(`أمر [${description}]:`, "success");
-            logToTerminal(command, "cmd");
+  brand: {
+    name: "Online4Tech",
+    slogan: "مش هدفنا نبيعلك جهاز وخلاص… هدفنا تشتري الصح من أول مرة!",
+    // 📱 رقم الواتساب بصيغة دولية من غير + ولا أصفار. مثال: 201012345678
+    whatsapp: "",
+    // نقاط عن المحل (مكتوبة من وصف نشاطكم)
+    strengths: [
+      "متخصصين في رسيفرات Vu+ الألماني و Dreambox",
+      "سوفتوير وخدمات Enigma2",
+      "برمجة الرسيفرات وتركيب البلجنز والسكنز والأدوات",
+      "دعم فني متخصص"
+    ]
+  },
 
-            // Direct Beacon Request
-            const beaconUrl = `http://${ip}:${port}/web/shell?command=${encodeURIComponent(command)}&r=` + Math.random();
-            const beacon = new Image();
-            beacon.src = beaconUrl;
-        }
+  // 🛡️ اكتب هنا بس لو متأكد منها (سيبها فاضية لو مش متأكد)
+  warranty:   { text: "" },
+  delivery:   { text: "", fee: null },   // fee: رقم (مثلاً 80) أو 0 للشحن المجاني أو null لو مش محدد
+  afterSales: "",
+  supportText:"",
+  returnsText:"",
 
-        function copyLastCommand() {
-            if(!lastCmd) {
-                alert("لا يوجد أمر مسجل للنسخ!");
-                return;
-            }
-            const textarea = document.createElement('textarea');
-            textarea.value = lastCmd;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-            alert("تم نسخ الأمر بنجاح إلى الحافظة!");
-        }
+  // شارات الثقة: تظهر بس لو verified:true
+  trustBadges: [
+    { icon: "🛠️", text: "دعم فني متخصص", verified: true }
+  ],
 
-        function executeCustomCommand() {
-            const cmd = document.getElementById('customCommand').value.trim();
-            if (!cmd) return;
-            sendWebifCommand(cmd, `أمر مخصص`);
-            document.getElementById('customCommand').value = '';
-        }
+  // 🔥 العرض: يظهر بس لو enabled:true والمنتج ليه originalPrice أكبر من price
+  // endDate: تاريخ حقيقي مثل "2025-12-31T23:59:00+02:00" (لو null مفيش عداد)
+  offer: { enabled: false, title: "", endDate: null, note: "" },
 
-        function runSmartCommand(key) {
-            const cmd = SMART_COMMANDS[key];
-            if (cmd) sendWebifCommand(cmd, `تثبيت ${key}`);
-        }
+  // ⭐ آراء العملاء — ضيف بس آراء حقيقية: { name:"", text:"", rating:5 }
+  reviews: [],
 
-        function sendPowerCommand(code) {
-            const img = new Image();
-            img.src = `http://${getIp()}:${getPort()}/web/powerstate?newstate=${code}&r=` + Math.random();
-            logToTerminal(`تم إرسال أمر الطاقة (${code})`, "success");
-        }
+  // 💳 فعّل بس طرق الدفع اللي بتقبلوها فعلاً
+  payments: [
+    { id: "cod",       label: "الدفع عند الاستلام", enabled: false },
+    { id: "instapay",  label: "إنستاباي",           enabled: false },
+    { id: "wallet",    label: "محفظة إلكترونية",    enabled: false },
+    { id: "card",      label: "كارت بنكي",          enabled: false }
+  ],
 
-        function sendRCKey(keyCode) {
-            const rcImg = new Image();
-            rcImg.src = `http://${getIp()}:${getPort()}/web/remotecontrol?command=${keyCode}&r=` + Math.random();
-            logToTerminal(`زر الريموت: ${keyCode}`, "info");
-        }
+  // 📥 استقبال الطلبات (اختياري). اتركه فاضي = الطلب بيوصل بالواتساب بس
+  // type: "apps-script" (جوجل شيت) أو "formspree"
+  orders: { endpoint: "", type: "apps-script" },
 
-        function installIPTVBouquet() {
-            const host = document.getElementById('iptvHost').value.trim();
-            const user = document.getElementById('iptvUser').value.trim();
-            const pass = document.getElementById('iptvPass').value.trim();
-            if (!host || !user || !pass) {
-                alert("يرجى إدخال كافة بيانات IPTV!");
-                return;
-            }
-            const m3uUrl = `${host}/get.php?username=${user}&password=${pass}&type=m3u_plus`;
-            const cmd = `mkdir -p /etc/enigma2 && echo "${m3uUrl}" > /etc/enigma2/playlist.txt && wget -qO /tmp/iptv.m3u "${m3uUrl}" && echo "#NAME IPTV Bouquet" > /etc/enigma2/userbouquet.iptv_pro.tv && awk '/^#EXTINF/{title=$0; sub(/.*,/,"",title); next} /^http/{print "#SERVICE 4097:0:1:0:0:0:0:0:0:0:" $0 ":" title}' /tmp/iptv.m3u >> /etc/enigma2/userbouquet.iptv_pro.tv && grep -q "userbouquet.iptv_pro.tv" /etc/enigma2/bouquets.tv || echo '#SERVICE 1:7:1:0:0:0:0:0:0:0:FROM BOUQUET "userbouquet.iptv_pro.tv" ORDER BY bouquet' >> /etc/enigma2/bouquets.tv && rm -f /tmp/iptv.m3u && wget -qO - "http://127.0.0.1/web/servicelistreload?mode=0"`;
-            sendWebifCommand(cmd, "تثبيت IPTV و البوكيهات");
-        }
+  // أسئلة عامة (تظهر لكل المنتجات): { q:"", a:"" }
+  faq: [],
 
-        function generateReaderPreview() {
-            const emuType = document.getElementById('camType').value;
-            const host = document.getElementById('camHost').value || 'host.com';
-            const port = document.getElementById('camPort').value || '12000';
-            const user = document.getElementById('camUser').value || 'user';
-            const pass = document.getElementById('camPass').value || 'pass';
+  // 📦 المنتجات
+  // originalPrice: السعر قبل الخصم — حطه بس لو الخصم حقيقي، وإلا خليه null
+  // images: [{ src:"assets/img/zero-1.jpg", alt:"وصف الصورة" }]
+  // features: [{ icon:"📺", title:"", text:"" }]
+  products: [
+    {
+      id: "zero-4k", name: "Vu+ Zero 4K", category: "رسيفر Vu+ الألماني",
+      price: 12000, originalPrice: null,
+      subtitle: "", description: "",
+      images: [], features: [], benefits: [], included: [],
+      why: { points: [] },
+      warranty: "", specsText: "", compatibilityText: "", faq: []
+    },
+    {
+      id: "uno-se-4k", name: "Vu+ Uno SE 4K", category: "رسيفر Vu+ الألماني",
+      price: 29000, originalPrice: null,
+      subtitle: "", description: "",
+      images: [], features: [], benefits: [], included: [],
+      why: { points: [] },
+      warranty: "", specsText: "", compatibilityText: "", faq: []
+    },
+    {
+      id: "dreambox-1", name: "دريم بوكس 1", category: "رسيفر Dreambox",
+      price: 21000, originalPrice: null,
+      subtitle: "", description: "",
+      images: [], features: [], benefits: [], included: [],
+      why: { points: [] },
+      warranty: "", specsText: "", compatibilityText: "", faq: []
+    },
+    {
+      id: "dreambox-525", name: "دريم بوكس 525 FHD", category: "رسيفر Dreambox",
+      price: 7000, originalPrice: null,
+      subtitle: "", description: "",
+      images: [], features: [], benefits: [], included: [],
+      why: { points: [] },
+      warranty: "", specsText: "", compatibilityText: "", faq: []
+    }
+  ]
+};
 
-            let output = '';
-            if (emuType === 'oscam' || emuType === 'ncam') {
-                output = `[reader]\nlabel = Server1\nprotocol = cccam\ndevice = ${host},${port}\nuser = ${user}\npassword = ${pass}\ninactivitytimeout = 30\ngroup = 1\nccckeepalive = 1`;
-            } else {
-                output = `C: ${host} ${port} ${user} ${pass}`;
-            }
-            document.getElementById('readerPreview').value = output;
-        }
+/* =====================================================================
+   ⛔ من هنا تحت مش محتاج تعدل حاجة
+   ===================================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const fmt = n => Number(n).toLocaleString("en-US") + " " + CONFIG.currency;
+const ph = t => CONFIG.showPlaceholders ? `<span class="ph">[ ${esc(t)} ]</span>` : "";
 
-        function sendCamToServer() {
-            const emuType = document.getElementById('camType').value;
-            const readerCode = document.getElementById('readerPreview').value.trim();
-            let targetPath = emuType === 'cccam' ? '/etc/CCcam.cfg' : `/etc/tuxbox/config/${emuType}.server`;
-            const cmd = `echo '${readerCode}' >> ${targetPath} && /etc/init.d/softcam restart`;
-            sendWebifCommand(cmd, `إرسال سيرفر إلى ${targetPath}`);
-        }
-    </script>
+let cur = CONFIG.products[0], qty = 1;
+let gIdx = 0, lbList = [], lbIdx = 0, cdTimer = null;
+
+/* ---------- منطق العرض ---------- */
+const endT = () => {
+  if (!CONFIG.offer.enabled || !CONFIG.offer.endDate) return null;
+  const t = Date.parse(CONFIG.offer.endDate);
+  return isFinite(t) ? t : null;
+};
+const hasDisc = p => p.originalPrice > p.price;
+const offerEnded = p => hasDisc(p) && endT() !== null && endT() <= Date.now();
+const discOn = p => hasDisc(p) && !offerEnded(p);
+const priceOf = p => offerEnded(p) ? p.originalPrice : p.price;   // لو العرض خلص يرجع للسعر الأصلي
+const pctOf = p => Math.round((1 - p.price / p.originalPrice) * 100);
+
+/* ---------- صورة بديلة لو مفيش صور ---------- */
+function cardSVG(p) {
+  const n = String(p.name).replace(/[&<>]/g, "");
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1f4d"/><stop offset="1" stop-color="#050b1a"/></linearGradient></defs><rect width="800" height="600" fill="url(#g)"/><rect x="80" y="220" width="640" height="160" rx="24" fill="#0d2a63" stroke="#2f7bff" stroke-width="3"/><circle cx="650" cy="300" r="11" fill="#22d3ee"/><text x="400" y="315" text-anchor="middle" font-family="Cairo,Tahoma,Arial" font-size="46" font-weight="800" fill="#eaf1ff">${n}</text><text x="400" y="480" text-anchor="middle" font-family="Arial" font-size="30" fill="#22d3ee">Online4Tech</text></svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+const imgsOf = p => (p.images || []).filter(i => i && i.src);
+
+/* ---------- Render ---------- */
+function setSec(id, html) { const el = $("#" + id); el.innerHTML = html || ""; el.hidden = !html || !html.trim(); }
+
+function renderPicker() {
+  const h = CONFIG.products.map(p =>
+    `<button type="button" class="chip" data-id="${esc(p.id)}" aria-pressed="${p.id === cur.id}">${esc(p.name)}<small>${fmt(priceOf(p))}</small></button>`).join("");
+  $("#pickTop").innerHTML = h; $("#pickBottom").innerHTML = h;
+}
+
+function renderHero() {
+  const p = cur, im = imgsOf(p), src = im[0] ? im[0].src : cardSVG(p), alt = im[0] ? (im[0].alt || p.name) : p.name;
+  const badges = CONFIG.trustBadges.filter(b => b.verified).map(b => `<span>${esc(b.icon)} ${esc(b.text)}</span>`).join("");
+  $("#heroBox").innerHTML = `
+  <div class="hero-grid">
+    <div class="glass hero-img" id="heroImg"><img src="${esc(src)}" alt="${esc(alt)}" fetchpriority="high"></div>
+    <div>
+      <span class="tag">${esc(p.category)}</span>
+      <h1>${esc(p.name)}</h1>
+      ${p.subtitle ? `<p class="lead" style="font-weight:700">${esc(p.subtitle)}</p>` : ph("عنوان فرعي للمنتج")}
+      ${p.description ? `<p class="lead">${esc(p.description)}</p>` : ph("وصف مختصر للمنتج")}
+      <div class="price">
+        <span class="now">${fmt(priceOf(p))}</span>
+        ${discOn(p) ? `<s>${fmt(p.originalPrice)}</s><span class="badge">وفّر ${pctOf(p)}%</span>` : ""}
+      </div>
+      <a href="#orderSec" class="btn primary">اطلب دلوقتي</a>
+      ${badges ? `<div class="badges">${badges}</div>` : ""}
+    </div>
+  </div>`;
+}
+
+function renderProblem() {
+  setSec("problem", `<div class="wrap">
+    <h2>اختيار الرسيفر مش لازم يبقى مغامرة</h2>
+    <p class="sub">${esc(CONFIG.brand.slogan)}</p>
+    <div class="cols2">
+      <div class="glass card"><h3>المشكلة</h3><ul class="list bad">
+        <li>تشتري جهاز ومتعرفش هو مناسب لاستخدامك ولا لأ</li>
+        <li>الجهاز ميتظبطش صح من أول يوم</li>
+        <li>تحتاج مساعدة ومتلاقيش حد متخصص يرد عليك</li></ul></div>
+      <div class="glass card"><h3>الحل مع ${esc(CONFIG.brand.name)}</h3><ul class="list ok">
+        <li>بنساعدك تختار الجهاز الصح قبل ما تشتري</li>
+        <li>متخصصين في Vu+ و Dreambox وسوفتوير Enigma2</li>
+        <li>دعم فني متخصص بعد الشراء</li></ul></div>
+    </div></div>`);
+}
+
+function renderFeatures() {
+  const p = cur; let h = "";
+  if (p.features && p.features.length) h += `<div class="feats">${p.features.map(f => `<div class="glass card feat"><div class="ic">${esc(f.icon || "✔️")}</div><h3>${esc(f.title)}</h3><p style="color:var(--muted)">${esc(f.text)}</p></div>`).join("")}</div>`;
+  const two = [];
+  if (p.benefits && p.benefits.length) two.push(`<div class="glass card"><h3>هتستفيد إيه؟</h3><ul class="list ok">${p.benefits.map(b => `<li>${esc(b)}</li>`).join("")}</ul></div>`);
+  if (p.included && p.included.length) two.push(`<div class="glass card"><h3>إيه اللي في العلبة؟</h3><ul class="list ok">${p.included.map(b => `<li>${esc(b)}</li>`).join("")}</ul></div>`);
+  if (two.length) h += `<div class="cols2" style="margin-top:14px">${two.join("")}</div>`;
+  const tx = [];
+  if (p.specsText) tx.push(`<div class="glass card"><h3>المواصفات</h3><p style="color:var(--muted);white-space:pre-line">${esc(p.specsText)}</p></div>`);
+  if (p.compatibilityText) tx.push(`<div class="glass card"><h3>التوافق</h3><p style="color:var(--muted);white-space:pre-line">${esc(p.compatibilityText)}</p></div>`);
+  if (tx.length) h += `<div class="cols2" style="margin-top:14px">${tx.join("")}</div>`;
+  if (!h && CONFIG.showPlaceholders) h = `<p class="sub">${ph("مميزات ومواصفات " + p.name)}</p>`;
+  setSec("features", h ? `<div class="wrap"><h2>مميزات ${esc(p.name)}</h2><p class="sub">&nbsp;</p>${h}</div>` : "");
+}
+
+function renderGallery() {
+  const im = imgsOf(cur); gIdx = 0;
+  if (!im.length) { setSec("gallery", CONFIG.showPlaceholders ? `<div class="wrap"><h2>صور المنتج</h2><p class="sub">${ph("ضيف صور حقيقية في images")}</p></div>` : ""); return; }
+  setSec("gallery", `<div class="wrap"><h2>صور ${esc(cur.name)}</h2><p class="sub">اضغط على الصورة للتكبير</p>
+    <div class="glass gal-main" id="galMain"><img id="galImg" src="${esc(im[0].src)}" alt="${esc(im[0].alt || cur.name)}" loading="lazy"></div>
+    ${im.length > 1 ? `<div class="thumbs">${im.map((x, i) => `<button type="button" data-i="${i}" aria-current="${i === 0}" aria-label="صورة ${i + 1}"><img src="${esc(x.src)}" alt="" loading="lazy"></button>`).join("")}</div>` : ""}</div>`);
+}
+function setG(i) {
+  const im = imgsOf(cur); if (!im.length) return;
+  gIdx = (i + im.length) % im.length;
+  const g = $("#galImg"); g.src = im[gIdx].src; g.alt = im[gIdx].alt || cur.name;
+  document.querySelectorAll(".thumbs button").forEach((b, k) => b.setAttribute("aria-current", k === gIdx));
+}
+
+function renderWhy() {
+  const pts = (cur.why && cur.why.points && cur.why.points.length) ? cur.why.points : CONFIG.brand.strengths;
+  setSec("why", pts && pts.length ? `<div class="wrap"><h2>ليه تشتري من ${esc(CONFIG.brand.name)}؟</h2><p class="sub">&nbsp;</p>
+    <div class="glass card" style="max-width:700px;margin:auto"><ul class="list ok">${pts.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div></div>` : "");
+}
+
+function renderReviews() {
+  const r = CONFIG.reviews || [];
+  if (!r.length) { setSec("reviews", CONFIG.showPlaceholders ? `<div class="wrap"><h2>آراء العملاء</h2><p class="sub">${ph("ضيف آراء عملاء حقيقية في reviews")}</p></div>` : ""); return; }
+  setSec("reviews", `<div class="wrap"><h2>آراء العملاء</h2><p class="sub">&nbsp;</p><div class="reviews">${r.map(x =>
+    `<div class="glass card">${x.rating ? `<div class="stars">${"★".repeat(Math.max(0, Math.min(5, x.rating)))}</div>` : ""}<p>${esc(x.text)}</p><p style="color:var(--muted);margin-top:6px;font-weight:700">— ${esc(x.name)}</p></div>`).join("")}</div></div>`);
+}
+
+function renderTrust() {
+  const c = CONFIG, w = cur.warranty || c.warranty.text, items = [];
+  if (w) items.push(["🛡️", "الضمان", w]);
+  if (c.delivery.text) items.push(["🚚", "التوصيل", c.delivery.text]);
+  if (c.afterSales) items.push(["🔧", "خدمة ما بعد البيع", c.afterSales]);
+  if (c.supportText) items.push(["💬", "الدعم الفني", c.supportText]);
+  if (c.returnsText) items.push(["↩️", "الاستبدال والاسترجاع", c.returnsText]);
+  if (!items.length) { setSec("trust", CONFIG.showPlaceholders ? `<div class="wrap"><h2>الضمان والدعم</h2><p class="sub">${ph("الضمان / التوصيل / الدعم / الاسترجاع")}</p></div>` : ""); return; }
+  setSec("trust", `<div class="wrap"><h2>الضمان والدعم</h2><p class="sub">&nbsp;</p><div class="feats">${items.map(i =>
+    `<div class="glass card feat"><div class="ic">${i[0]}</div><h3>${i[1]}</h3><p style="color:var(--muted);white-space:pre-line">${esc(i[2])}</p></div>`).join("")}</div></div>`);
+}
+
+function renderOffer() {
+  const p = cur, o = CONFIG.offer;
+  if (!(o.enabled && discOn(p))) { setSec("offer", ""); return; }
+  const save = p.originalPrice - p.price;
+  setSec("offer", `<div class="wrap"><div class="glass offer">
+    <span class="badge">خصم ${pctOf(p)}%</span>
+    <h2 style="margin-top:10px">${esc(o.title || "عرض على " + p.name)}</h2>
+    <p class="lead">بدل <s>${fmt(p.originalPrice)}</s> دلوقتي <b style="color:#fff">${fmt(p.price)}</b> — وفّر ${fmt(save)}</p>
+    ${o.note ? `<p class="note">${esc(o.note)}</p>` : ""}
+    ${endT() ? `<div class="cd" id="cd"><div><b id="cdD">0</b><small>يوم</small></div><div><b id="cdH">0</b><small>ساعة</small></div><div><b id="cdM">0</b><small>دقيقة</small></div><div><b id="cdS">0</b><small>ثانية</small></div></div>` : ""}
+    <div style="margin-top:18px"><a href="#orderSec" class="btn primary">اطلب دلوقتي</a></div></div></div>`);
+}
+function startCountdown() {
+  clearInterval(cdTimer);
+  if (!$("#cd")) return;
+  const tick = () => {
+    const d = endT() - Date.now();
+    if (d <= 0) { clearInterval(cdTimer); render(); return; }
+    $("#cdD").textContent = Math.floor(d / 864e5);
+    $("#cdH").textContent = Math.floor(d % 864e5 / 36e5);
+    $("#cdM").textContent = Math.floor(d % 36e5 / 6e4);
+    $("#cdS").textContent = Math.floor(d % 6e4 / 1e3);
+  };
+  tick(); cdTimer = setInterval(tick, 1000);
+}
+
+function renderFAQ() {
+  const c = CONFIG, items = [...(cur.faq || []), ...(c.faq || [])];
+  const w = cur.warranty || c.warranty.text;
+  if (w) items.push({ q: "هل في ضمان؟", a: w });
+  if (c.delivery.text) items.push({ q: "بتوصلوا إزاي؟", a: c.delivery.text });
+  if (c.returnsText) items.push({ q: "ينفع أرجّع أو أستبدل؟", a: c.returnsText });
+  const pays = c.payments.filter(x => x.enabled).map(x => x.label);
+  if (pays.length) items.push({ q: "بتقبلوا الدفع إزاي؟", a: pays.join(" - ") });
+  if (!items.length) { setSec("faq", CONFIG.showPlaceholders ? `<div class="wrap"><h2>أسئلة شائعة</h2><p class="sub">${ph("أسئلة وأجوبة في faq")}</p></div>` : ""); return; }
+  setSec("faq", `<div class="wrap" style="max-width:760px"><h2>أسئلة شائعة</h2><p class="sub">&nbsp;</p>${items.map(i =>
+    `<details><summary>${esc(i.q)}</summary><p style="white-space:pre-line">${esc(i.a)}</p></details>`).join("")}</div>`);
+}
+
+/* ---------- ملخص الطلب ---------- */
+function shipTxt() {
+  const f = CONFIG.delivery.fee;
+  return f === null || f === undefined ? "بيتحدد عند التأكيد" : (f === 0 ? "مجاني" : fmt(f));
+}
+function totalVal() { const f = CONFIG.delivery.fee; return priceOf(cur) * qty + (typeof f === "number" ? f : 0); }
+function updateSummary() {
+  const unknownShip = CONFIG.delivery.fee === null || CONFIG.delivery.fee === undefined;
+  $("#sum").innerHTML = `
+    <div><span>المنتج</span><b>${esc(cur.name)}</b></div>
+    <div><span>سعر الوحدة</span><b>${fmt(priceOf(cur))}</b></div>
+    <div><span>الكمية</span><b>${qty}</b></div>
+    <div><span>الشحن</span><b>${shipTxt()}</b></div>
+    <div class="tot"><span>الإجمالي${unknownShip ? " (من غير الشحن)" : ""}</span><span>${fmt(totalVal())}</span></div>`;
+  const dn = $("#delivNote");
+  dn.hidden = !CONFIG.delivery.text; dn.textContent = CONFIG.delivery.text;
+  $("#qty").value = qty;
+}
+function renderPayments() {
+  const en = CONFIG.payments.filter(x => x.enabled);
+  $("#payBox").hidden = !en.length;
+  $("#pays").innerHTML = en.map((x, i) => `<label><input type="radio" name="pay" value="${esc(x.label)}" ${i === 0 ? "checked" : ""}> ${esc(x.label)}</label>`).join("");
+}
+function renderOrderNote() {
+  const hasEp = !!CONFIG.orders.endpoint;
+  $("#subBtn").hidden = !hasEp;
+  $("#orderNote").textContent = hasEp
+    ? "تقدر تبعت الطلب مباشرة بزرار «تأكيد الطلب» أو عن طريق واتساب."
+    : "الطلب بيوصلنا لما تبعت رسالة الواتساب اللي هتتفتح لك.";
+}
+
+/* ---------- Render all ---------- */
+function render() {
+  renderPicker(); renderHero(); renderProblem(); renderFeatures(); renderGallery();
+  renderWhy(); renderReviews(); renderTrust(); renderOffer(); renderFAQ();
+  updateSummary();
+  $("#stName").textContent = cur.name; $("#stPrice").textContent = fmt(priceOf(cur));
+  document.title = cur.name + " | " + CONFIG.brand.name;
+  startCountdown();
+}
+function selectProduct(id, fromUser) {
+  const p = CONFIG.products.find(x => x.id === id); if (!p) return;
+  cur = p; render();
+  if (fromUser) { try { history.replaceState(null, "", "?p=" + encodeURIComponent(id)); } catch (e) {} }
+}
+
+/* ---------- Lightbox ---------- */
+function openLB(list, i) { lbList = list; lbIdx = i; showLB(); $("#lb").classList.add("open"); document.body.style.overflow = "hidden"; }
+function showLB() {
+  const x = lbList[lbIdx], im = $("#lbImg"); im.classList.remove("zoom"); im.style.transformOrigin = "center";
+  im.src = x.src; im.alt = x.alt || "";
+  $("#lbC").textContent = lbList.length > 1 ? (lbIdx + 1) + " / " + lbList.length : "";
+  $("#lbP").hidden = $("#lbN").hidden = lbList.length < 2;
+}
+function closeLB() { $("#lb").classList.remove("open"); document.body.style.overflow = ""; }
+function stepLB(d) { lbIdx = (lbIdx + d + lbList.length) % lbList.length; showLB(); }
+
+/* ---------- Events ---------- */
+document.addEventListener("click", e => {
+  const chip = e.target.closest(".chip"); if (chip) { selectProduct(chip.dataset.id, true); return; }
+  const th = e.target.closest(".thumbs button"); if (th) { setG(+th.dataset.i); return; }
+  if (e.target.closest("#galMain")) { const im = imgsOf(cur); openLB(im, gIdx); return; }
+  if (e.target.closest("#heroImg")) { const im = imgsOf(cur); if (im.length) openLB(im, 0); }
+});
+$("#lbX").onclick = closeLB;
+$("#lbP").onclick = () => stepLB(1);
+$("#lbN").onclick = () => stepLB(-1);
+$("#lb").addEventListener("click", e => { if (e.target.id === "lb") closeLB(); });
+$("#lbImg").addEventListener("click", e => {
+  const im = e.currentTarget, r = im.getBoundingClientRect();
+  im.style.transformOrigin = ((e.clientX - r.left) / r.width * 100) + "% " + ((e.clientY - r.top) / r.height * 100) + "%";
+  im.classList.toggle("zoom");
+});
+document.addEventListener("keydown", e => {
+  if (!$("#lb").classList.contains("open")) return;
+  if (e.key === "Escape") closeLB();
+  if (e.key === "ArrowLeft") stepLB(1);
+  if (e.key === "ArrowRight") stepLB(-1);
+});
+/* سحب (Swipe) */
+function swipe(el, fn, guard) {
+  let x0 = null, y0 = 0;
+  el.addEventListener("touchstart", e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  el.addEventListener("touchend", e => {
+    if (x0 === null) return;
+    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null;
+    if (guard && !guard()) return;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)) fn(dx < 0 ? 1 : -1);
+  }, { passive: true });
+}
+swipe($("#lb"), stepLB, () => !$("#lbImg").classList.contains("zoom") && lbList.length > 1);
+document.addEventListener("touchstart", () => {}, { passive: true });
+swipe(document.body, d => { if (event && event.target.closest && event.target.closest("#galMain")) setG(gIdx + d); });
+
+/* الكمية */
+$("#qMinus").onclick = () => { qty = Math.max(1, qty - 1); updateSummary(); };
+$("#qPlus").onclick = () => { qty = Math.min(10, qty + 1); updateSummary(); };
+
+/* ---------- التحقق والإرسال ---------- */
+const phoneRe = /^(\+?20|0)?1[0125]\d{8}$/;
+function readForm() {
+  const pay = document.querySelector("input[name=pay]:checked");
+  return {
+    name: $("#name").value.trim(),
+    phone: $("#phone").value.replace(/[\s-]/g, ""),
+    address: $("#address").value.trim(),
+    notes: $("#notes").value.trim(),
+    payment: pay ? pay.value : ""
+  };
+}
+function validate() {
+  const d = readForm(); let ok = true;
+  const set = (id, bad) => { $("#" + id).classList.toggle("bad", bad); if (bad) ok = false; };
+  set("f-name", d.name.length < 2);
+  set("f-phone", !phoneRe.test(d.phone));
+  set("f-address", d.address.length < 8);
+  if (!ok) { const f = document.querySelector(".field.bad input,.field.bad textarea"); if (f) f.focus(); }
+  return ok ? d : null;
+}
+const showMsg = (t, k) => { $("#formMsg").innerHTML = t ? `<div class="msg ${k}">${esc(t)}</div>` : ""; };
+const pageURL = () => { try { return location.origin + location.pathname + "?p=" + cur.id; } catch (e) { return ""; } };
+
+function buildWA(d) {
+  const L = [
+    "*طلب جديد من الصفحة*",
+    "المنتج: " + cur.name,
+    "الكمية: " + qty,
+    "سعر الوحدة: " + fmt(priceOf(cur)),
+    "الشحن: " + shipTxt(),
+    "الإجمالي: " + fmt(totalVal()) + (CONFIG.delivery.fee == null ? " (من غير الشحن)" : ""),
+    "------------",
+    "الاسم: " + d.name,
+    "الموبايل: " + d.phone,
+    "العنوان: " + d.address
+  ];
+  if (d.payment) L.push("طريقة الدفع: " + d.payment);
+  if (d.notes) L.push("ملاحظات: " + d.notes);
+  L.push("------------", "رابط الصفحة: " + pageURL());
+  return L.join("\n");
+}
+$("#waBtn").onclick = () => {
+  showMsg("");
+  const num = String(CONFIG.brand.whatsapp || "").replace(/\D/g, "");
+  if (!num) { showMsg("رقم الواتساب لسه متضافش في الصفحة. جرّب تتواصل معانا بطريقة تانية.", "err"); return; }
+  const d = validate(); if (!d) return;
+  window.open("https://wa.me/" + num + "?text=" + encodeURIComponent(buildWA(d)), "_blank", "noopener");
+  showMsg("اتفتح لك واتساب برسالة الطلب جاهزة. الطلب بيوصلنا لما تضغط «إرسال» جوه واتساب.", "info");
+};
+$("#order").addEventListener("submit", async e => {
+  e.preventDefault(); showMsg("");
+  if ($("#order").website.value) return;                      // honeypot
+  const ep = CONFIG.orders.endpoint; if (!ep) return;
+  const d = validate(); if (!d) return;
+  const btn = $("#subBtn"), old = btn.textContent; btn.disabled = true; btn.textContent = "بنبعت طلبك...";
+  const payload = { ...d, product: cur.name, productId: cur.id, quantity: qty, unitPrice: priceOf(cur), shipping: shipTxt(), total: totalVal(), page: pageURL(), time: new Date().toISOString() };
+  try {
+    const fs = CONFIG.orders.type === "formspree";
+    const res = await fetch(ep, {
+      method: "POST",
+      headers: fs ? { "Content-Type": "application/json", "Accept": "application/json" } : { "Content-Type": "text/plain;charset=utf-8" },
+      body: JSON.stringify(payload)
+    });
+    let data = {}; try { data = await res.json(); } catch (x) {}
+    if (res.ok && data.ok !== false && !data.error) {
+      showMsg("تم استلام طلبك. هنتواصل معاك على رقم الموبايل لتأكيده.", "ok");
+      $("#order").reset(); qty = 1; updateSummary();
+    } else throw new Error("fail");
+  } catch (err) {
+    showMsg("حصلت مشكلة وطلبك ماتبعتش. حاول تاني أو ابعت الطلب عن طريق واتساب.", "err");
+  } finally { btn.disabled = false; btn.textContent = old; }
+});
+["name", "phone", "address"].forEach(id => $("#" + id).addEventListener("input", () => $("#f-" + id).classList.remove("bad")));
+
+/* ---------- الشريط الثابت ---------- */
+(function () {
+  const st = $("#sticky"); let heroV = true, ordV = false;
+  const upd = () => st.classList.toggle("show", !heroV && !ordV);
+  const io = new IntersectionObserver(es => es.forEach(en => {
+    if (en.target.id === "hero") heroV = en.isIntersecting; else ordV = en.isIntersecting; upd();
+  }), { threshold: 0.05 });
+  io.observe($("#hero")); io.observe($("#orderSec"));
+})();
+
+/* ---------- تشغيل ---------- */
+$("#slogan").textContent = CONFIG.brand.slogan;
+$("#yr").textContent = new Date().getFullYear();
+renderPayments(); renderOrderNote();
+const q = new URLSearchParams(location.search).get("p");
+if (q && CONFIG.products.some(p => p.id === q)) cur = CONFIG.products.find(p => p.id === q);
+render();
+</script>
 </body>
 </html>
