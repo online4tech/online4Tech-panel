@@ -11,7 +11,7 @@
 <meta property="og:description" content="مش هدفنا نبيعلك جهاز وخلاص… هدفنا تشتري الصح من أول مرة!">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#050b1a;--card:rgba(255,255,255,.05);--line:rgba(120,170,255,.2);--blue:#2f7bff;--cyan:#22d3ee;--text:#eaf1ff;--muted:#9fb0cf;--ok:#22c55e;--err:#ff6b6b;--warn:#f59e0b;--r:18px}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -167,6 +167,61 @@ header.top{padding-top:12px}
 footer{border-top-color:rgba(145,190,255,.18)}
 @media(min-width:700px){.product-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}.product-card{padding:15px}.product-card .photo{aspect-ratio:1.15/1}.product-card h3{font-size:1.08rem}}
 @media(max-width:420px){.product-grid{gap:10px}.product-card{padding:9px;border-radius:17px}.product-card .photo{aspect-ratio:1.05/1}.product-card h3{font-size:.9rem}.product-card .card-price{font-size:.88rem}.contact-float{bottom:84px;padding:10px 13px}}
+
+
+/* Compact layout + lighter rendering */
+.wrap{max-width:1000px}
+section{padding:26px 0}
+@media(min-width:860px){section{padding:34px 0}}
+header.top{padding:8px 0 2px}
+.brandrow-premium{margin:4px 0 12px}
+.brand-lockup{padding:10px 22px 8px;border-radius:18px;box-shadow:0 8px 22px rgba(24,91,190,.12);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.brand-mark{width:42px;height:42px;border-radius:13px;box-shadow:none}
+.brand-mark svg{width:31px;height:31px}
+.brand-word{font-size:clamp(1.5rem,4vw,2rem);line-height:1.18}
+.brand-lockup small{font-size:.55rem;letter-spacing:1.8px}
+.picker{gap:6px;padding-bottom:5px}
+.chip{min-width:112px;padding:6px 10px;border-radius:11px;font-size:.88rem}
+.chip small{font-size:.72rem}
+.hero{padding-top:12px}
+.hero-grid{gap:16px}
+.hero-img{padding:8px;border-radius:18px}
+.hero-img img{aspect-ratio:16/10;min-height:0;max-height:300px;border-radius:12px}
+.hero-grid>div:last-child{padding:2px}
+.hero h1{font-size:clamp(1.55rem,4vw,2.25rem)}
+.lead{margin:6px 0;font-size:.96rem}
+.price{margin:10px 0}
+.price .now{font-size:1.65rem}
+.btn{padding:11px 20px}
+.catalogue{padding-top:16px}
+.catalogue-head{margin-bottom:16px}
+.catalogue-head .sub{margin-bottom:0}
+.product-grid{gap:10px}
+.product-card{padding:9px;border-radius:16px;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);box-shadow:0 8px 20px rgba(0,0,0,.14)}
+.product-card .photo{aspect-ratio:1.45/1;border-radius:11px;margin-bottom:8px}
+.product-card img{padding:5px;filter:none}
+.product-card h3{font-size:.94rem}
+.product-card .category{font-size:.7rem}
+.product-card .card-bottom{margin-top:6px}
+.product-card .card-price{font-size:.88rem}
+.product-card .choose{font-size:.68rem;padding:3px 6px}
+.glass{backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.card{padding:16px}
+.contact-float{bottom:78px;padding:9px 13px;box-shadow:0 6px 18px rgba(12,170,91,.22)}
+.sticky{backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+footer{padding:22px 0 16px;margin-top:12px}
+@media(max-width:600px){
+ .wrap{padding-inline:13px}
+ section{padding:20px 0}
+ .hero-img img{max-height:220px;aspect-ratio:16/10}
+ .hero-grid{gap:12px}
+ .brandrow-premium{margin-bottom:9px}
+ .product-grid{gap:8px}
+ .product-card{padding:8px}
+ .product-card .photo{aspect-ratio:1.25/1}
+ .product-card h3{font-size:.86rem}
+}
+@media(prefers-reduced-motion:reduce){.product-card:hover{transform:none}}
 
 </style>
 </head>
@@ -366,7 +421,7 @@ const CONFIG = {
       id: "dreambox-525", name: "Dreambox DM525 FHD", category: "Dreambox الألمانية",
       price: 7000, originalPrice: null,
       subtitle: "اختيار عملي لمشاهدة Full HD", description: "رسيفر Dreambox مدمج بدقة Full HD لعشاق أجهزة Enigma2.",
-      images: [{src:"https://dreambox.de/de/wp-content/uploads/2017/01/dreambox_dm525_03-1-150x150.jpg",alt:"صورة Dreambox DM525 من موقع Dreambox الرسمي"}], features: [], benefits: [], included: [],
+      images: [{src:"https://www.satking.de/media/96/79/58/1726645465/DM525HD_front2_0001.jpg?ts=1756716627",alt:"صورة Dreambox DM525 من موقع Dreambox الرسمي"}], features: [], benefits: [], included: [],
       why: { points: [] },
       warranty: "", specsText: "", compatibilityText: "", faq: []
     }
